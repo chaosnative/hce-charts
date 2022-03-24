@@ -77,10 +77,10 @@ kubectl apply -f http://hce.chaosnative.com/manifests/ci/hce-cluster-scope.yaml
 
 Or
 
-> Master (Latest) Namespaced scope. Replace `<namespace>` with the desired namespace.
+> Master (Latest) Namespaced scope. Replace `litmus` with the desired namespace.
 
 ```bash
-export HCE_NAMESPACE="<namespace>"
+export HCE_NAMESPACE="litmus"
 kubectl create ns ${HCE_NAMESPACE}
 kubectl apply -f http://hce.chaosnative.com/manifests/ci/hce-crds.yaml
 wget http://hce.chaosnative.com/manifests/ci/hce-namespace.yaml
