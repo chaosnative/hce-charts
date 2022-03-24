@@ -49,7 +49,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${LITMUS_PORTAL_NAMESPACE}
+    namespace: ${HCE_NAMESPACE}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -107,7 +107,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${LITMUS_PORTAL_NAMESPACE}
+    namespace: ${HCE_NAMESPACE}
 #these permissions are required to apply https://github.com/chaosnative/hce/blob/master/litmus-portal/graphql-server/manifests/namespace/3a_agents_rbac.yaml
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -152,7 +152,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${LITMUS_PORTAL_NAMESPACE}
+    namespace: ${HCE_NAMESPACE}
 roleRef:
   kind: Role
   name: subscriber-role-for-litmusportal-server
@@ -277,7 +277,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${LITMUS_PORTAL_NAMESPACE}
+    namespace: ${HCE_NAMESPACE}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -316,7 +316,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${LITMUS_PORTAL_NAMESPACE}
+    namespace: ${HCE_NAMESPACE}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -344,7 +344,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${LITMUS_PORTAL_NAMESPACE}
+    namespace: ${HCE_NAMESPACE}
 # litmus-server-role is used by the litmusportal-server
 # If SELF_CLUSTER=false, then only litmus-server-role and litmus-server-rb are required.
 ---
@@ -383,7 +383,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${LITMUS_PORTAL_NAMESPACE}
+    namespace: ${HCE_NAMESPACE}
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -396,7 +396,7 @@ data:
 kind: Secret
 metadata:
   name: regcred
-  namespace: ${LITMUS_PORTAL_NAMESPACE}
+  namespace: ${HCE_NAMESPACE}
 type: kubernetes.io/dockerconfigjson
 ---
 apiVersion: v1
@@ -414,7 +414,7 @@ metadata:
   name: litmus-portal-admin-config
 data:
   AGENT_SCOPE: namespace
-  AGENT_NAMESPACE: ${LITMUS_PORTAL_NAMESPACE}
+  AGENT_NAMESPACE: ${HCE_NAMESPACE}
   DB_SERVER: "mongodb://mongo-service:27017"
   VERSION: "master-ci"
 ---
