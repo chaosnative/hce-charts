@@ -4,7 +4,9 @@ metadata:
   name: {{ include "hce.fullname" . }}-license-server
   namespace:  {{ .Release.Namespace }}
   labels:
-    component: license-server
+  labels:
+    app.kubernetes.io/component: {{ include "hce.name" . }}-license-server
+    {{- include "hce.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
