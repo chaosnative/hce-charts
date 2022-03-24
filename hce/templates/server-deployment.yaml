@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "cle.fullname" . }}-server
+  name: {{ include "hce.fullname" . }}-server
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/component: {{ include "cle.name" . }}-server
-    {{- include "cle.labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ include "hce.name" . }}-server
+    {{- include "hce.labels" . | nindent 4 }}
     {{- if .Values.portal.server.customLabels }}
       {{ toYaml .Values.portal.server.customLabels | nindent 4 }}
     {{- end }}
@@ -17,12 +17,12 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      app.kubernetes.io/component: {{ include "cle.name" . }}-server
+      app.kubernetes.io/component: {{ include "hce.name" . }}-server
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: {{ include "cle.name" . }}-server
-        {{- include "cle.labels" . | nindent 8 }}
+        app.kubernetes.io/component: {{ include "hce.name" . }}-server
+        {{- include "hce.labels" . | nindent 8 }}
         {{- if .Values.portal.server.customLabels }}
           {{ toYaml .Values.portal.server.customLabels | nindent 8 }}
         {{- end }}
@@ -39,7 +39,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             [
-              "while [[ $(curl -sw '%{http_code}' http://{{ include "cle.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+              "while [[ $(curl -sw '%{http_code}' http://{{ include "hce.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
             ]
           resources:
             {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
@@ -55,22 +55,22 @@ spec:
             - name: VERSION
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "cle.fullname" . }}-admin-config
+                  name: {{ include "hce.fullname" . }}-admin-config
                   key: VERSION
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "cle.fullname" . }}-admin-secret
+                  name: {{ include "hce.fullname" . }}-admin-secret
                   key: DB_USER
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "cle.fullname" . }}-admin-secret
+                  name: {{ include "hce.fullname" . }}-admin-secret
                   key: DB_PASSWORD
             - name: DB_SERVER
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "cle.fullname" . }}-admin-config
+                  name: {{ include "hce.fullname" . }}-admin-config
                   key: DB_SERVER   
           resources:
             {{- toYaml .Values.portal.server.serverVersionUpdater.resources | nindent 12 }}
@@ -95,9 +95,9 @@ spec:
             {{- toYaml .Values.portal.server.graphqlServer.readinessProbe | nindent 12 }}
           envFrom:
             - secretRef:
-                name: {{ include "cle.fullname" . }}-admin-secret
+                name: {{ include "hce.fullname" . }}-admin-secret
             - configMapRef:
-                name: {{ include "cle.fullname" . }}-admin-config
+                name: {{ include "hce.fullname" . }}-admin-config
           env:
             - name: LITMUS_PORTAL_NAMESPACE
               valueFrom:
@@ -106,10 +106,10 @@ spec:
             - name: PORTAL_SCOPE
               value: {{ .Values.portalScope }}
             - name: SERVER_SERVICE_NAME
-              value: {{ include "cle.fullname" . }}-server-service
+              value: {{ include "hce.fullname" . }}-server-service
             {{- if eq .Values.portalScope "namespace" }}
             - name: PORTAL_ENDPOINT
-              value: "http://{{ include "cle.fullname" . }}-server-service:{{ .Values.portal.server.service.graphqlServer.port }}"
+              value: "http://{{ include "hce.fullname" . }}-server-service:{{ .Values.portal.server.service.graphqlServer.port }}"
             {{- end }}
             - name: INGRESS
               value: "{{ .Values.ingress.enabled }}"
@@ -137,9 +137,9 @@ spec:
             {{- toYaml .Values.portal.server.authServer.resources | nindent 12 }}
           envFrom:
             - secretRef:
-                name: {{ include "cle.fullname" . }}-admin-secret
+                name: {{ include "hce.fullname" . }}-admin-secret
             - configMapRef:
-                name: {{ include "cle.fullname" . }}-admin-config
+                name: {{ include "hce.fullname" . }}-admin-config
           env:
             {{- range $key, $val := .Values.portal.server.authServer.env }}
             - name: {{ $key }}

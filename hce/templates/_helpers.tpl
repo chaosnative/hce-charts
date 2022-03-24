@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "cle.name" -}}
+{{- define "hce.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "cle.fullname" -}}
+{{- define "hce.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -27,20 +27,20 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "cle.chart" -}}
+{{- define "hce.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Specify default labels
 */}}
-{{- define "cle.labels" -}}
+{{- define "hce.labels" -}}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-app.kubernetes.io/name: {{ include "cle.name" . }}
-app.kubernetes.io/part-of: {{ template "cle.name" . }}
+app.kubernetes.io/name: {{ include "hce.name" . }}
+app.kubernetes.io/part-of: {{ template "hce.name" . }}
 app.kubernetes.io/version: "{{ .Chart.Version }}"
-helm.sh/chart: {{ include "cle.chart" . }}
+helm.sh/chart: {{ include "hce.chart" . }}
 litmuschaos.io/version: {{ .Chart.AppVersion }}
 {{- if .Values.customLabels }}
 {{ toYaml .Values.customLabels }}
@@ -50,7 +50,7 @@ litmuschaos.io/version: {{ .Chart.AppVersion }}
 {{/*
 Specify default selectors
 */}}
-{{- define "cle.selectors" -}}
-app.kubernetes.io/name: {{ include "cle.name" . }}
+{{- define "hce.selectors" -}}
+app.kubernetes.io/name: {{ include "hce.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}

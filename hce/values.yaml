@@ -70,7 +70,7 @@ portal:
     ##       maxSurge: 1
     ##       maxUnavailable: 25%
     image:
-      repository: cle-frontend
+      repository: hce-frontend
       tag: 2.3.0
       pullPolicy: "Always"
     containerPort: 8080
@@ -169,7 +169,7 @@ portal:
 
     licenseServer:
       image:
-        repository: cle-license-module
+        repository: hce-license-module
         tag: 2.3.0
         pullPolicy: "Always"
       containerPort: 8080
@@ -193,7 +193,7 @@ portal:
 
     graphqlServer:
       image:
-        repository: cle-server
+        repository: hce-server
         tag: 2.3.0
         pullPolicy: "Always"
       containerPort: 8080
@@ -208,8 +208,8 @@ portal:
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
         HUB_BRANCH_NAME: "v2.2.x"
         AGENT_DEPLOYMENTS: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
-        SUBSCRIBER_IMAGE: "chaosnative/cle-subscriber:2.3.0"
-        EVENT_TRACKER_IMAGE: "chaosnative/cle-event-tracker:2.3.0"
+        SUBSCRIBER_IMAGE: "chaosnative/hce-subscriber:2.3.0"
+        EVENT_TRACKER_IMAGE: "chaosnative/hce-event-tracker:2.3.0"
       resources: 
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
@@ -236,7 +236,7 @@ portal:
         timeoutSeconds: 1
     authServer:
       image:
-        repository: cle-auth-server
+        repository: hce-auth-server
         tag: 2.3.0
         pullPolicy: "Always"
       containerPort: 3000

@@ -1,6 +1,4 @@
-# Helm Charts ChaosNative Litmus Enterprise
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fchaosnative%2Fcle-charts.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fchaosnative%2Fcle-charts?ref=badge_shield)
-
+# Helm Charts Harness Chaos Enterprise
 
 ## Usage
 
@@ -11,12 +9,12 @@
 
 ### Installation Steps
 
-The following steps will help you install CLE via helm.
+The following steps will help you install hce via helm.
 
 #### Step-1: Add the litmus helm repository
 
 ```bash
-helm repo add chaosnative https://charts.chaosnative.com
+helm repo add harness https://hce.chaosnative.com
 
 helm repo list
 ```
@@ -24,7 +22,7 @@ helm repo list
 Output:
 ```
 NAME            URL
-chaosnative     https://charts.chaosnative.com                                                               
+harness     https://hce.chaosnative.com                                                               
 ```
 
 #### Step-2: Create the litmus namespace
@@ -36,39 +34,35 @@ kubectl create ns litmus
 #### Step-3: Install the litmus chaos center
 
 ```bash
-helm install -n litmus chaosnative chaosnative/cle
+helm install -n litmus hce harness/hce
 ```
 
 Output:
 ```bash
-NAME: chaosnative
+NAME: hce
 LAST DEPLOYED: Mon Dec  6 01:43:14 2021
 NAMESPACE: litmus
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
-Thank you for installing cle 😀
+Thank you for installing hce 😀
 
-Your release is named chaosnative and it's installed to namespace: litmus.
+Your release is named hce and it's installed to namespace: litmus.
 
-Visit https://chaosnative.com to find more info.
+Visit https://harness.io to find more info.
 ```
 
 
-#### Step-3: Uninstall the ChaosNative Litmus Enterprise
+#### Step-3: Uninstall the Harness CHaos Enterprise
 
 ```bash
-helm uninstall chaosnative --namespace=litmus
+helm uninstall hce --namespace=litmus
 ```
 
 Output:
 ```bash
-release "chaosnative" uninstalled
+release "hce" uninstalled
 ```
 
 ---
-
-
-## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fchaosnative%2Fcle-charts.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fchaosnative%2Fcle-charts?ref=badge_large)

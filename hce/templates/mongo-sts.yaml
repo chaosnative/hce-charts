@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "cle.fullname" . }}-mongo
+  name: {{ include "hce.fullname" . }}-mongo
   namespace: {{ .Release.Namespace }}
   labels:
     app: mongo
-    app.kubernetes.io/component: {{ include "cle.name" . }}-database
-    {{- include "cle.labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ include "hce.name" . }}-database
+    {{- include "hce.labels" . | nindent 4 }}
     {{- if .Values.mongo.customLabels }}
       {{ toYaml .Values.mongo.customLabels | nindent 4 }}
     {{- end }}
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/component: {{ include "cle.name" . }}-database
-  serviceName: {{ include "cle.fullname" . }}-headless-mongo
+      app.kubernetes.io/component: {{ include "hce.name" . }}-database
+  serviceName: {{ include "hce.fullname" . }}-headless-mongo
   replicas: {{ .Values.mongo.replicas }}
   template:
     metadata:
       labels:
         app: mongo
-        app.kubernetes.io/component: {{ include "cle.name" . }}-database
-        {{- include "cle.labels" . | nindent 8 }}
+        app.kubernetes.io/component: {{ include "hce.name" . }}-database
+        {{- include "hce.labels" . | nindent 8 }}
         {{- if .Values.mongo.customLabels }}
           {{ toYaml .Values.mongo.customLabels | nindent 8 }}
         {{- end }}
@@ -67,12 +67,12 @@ spec:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "cle.fullname" . }}-admin-secret
+                  name: {{ include "hce.fullname" . }}-admin-secret
                   key: DB_USER
             - name: MONGO_INITDB_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "cle.fullname" . }}-admin-secret
+                  name: {{ include "hce.fullname" . }}-admin-secret
                   key: DB_PASSWORD
     {{- with .Values.mongo.nodeSelector }}
       nodeSelector:

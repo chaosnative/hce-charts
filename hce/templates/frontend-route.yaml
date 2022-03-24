@@ -1,5 +1,5 @@
 {{- if .Values.openshift.route.enabled -}}
-{{ $fullName := include "cle.fullname" . }}
+{{ $fullName := include "hce.fullname" . }}
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:

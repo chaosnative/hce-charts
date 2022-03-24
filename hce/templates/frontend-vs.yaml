@@ -3,11 +3,11 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: {{ include "cle.fullname" . }}-frontend-service
+  name: {{ include "hce.fullname" . }}-frontend-service
   namespace:  {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/component: {{ include "cle.fullname" . }}-frontend
-    {{- include "cle.labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ include "hce.fullname" . }}-frontend
+    {{- include "hce.labels" . | nindent 4 }}
 spec:
   hosts:
 {{- with .Values.portal.frontend.virtualService.hosts }}

@@ -1,4 +1,4 @@
-# cle
+# hce
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
@@ -14,7 +14,7 @@ A Helm chart to install ChaosNative Litmus Enterprise
 
 ## Source Code
 
-* <https://github.com/chaosnative/cle>
+* <https://github.com/chaosnative/hce>
 
 ## Requirements
 
@@ -73,7 +73,7 @@ Kubernetes: `>=1.16.0-0`
 | portal.frontend.containerPort | int | `8080` |  |
 | portal.frontend.customLabels | object | `{}` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
-| portal.frontend.image.repository | string | `"cle-frontend"` |  |
+| portal.frontend.image.repository | string | `"hce-frontend"` |  |
 | portal.frontend.image.tag | string | `"2.3.0"` |  |
 | portal.frontend.livenessProbe.failureThreshold | int | `5` |  |
 | portal.frontend.livenessProbe.initialDelaySeconds | int | `30` |  |
@@ -100,19 +100,19 @@ Kubernetes: `>=1.16.0-0`
 | portal.server.authServer.env.ADMIN_PASSWORD | string | `"litmus"` |  |
 | portal.server.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
 | portal.server.authServer.image.pullPolicy | string | `"Always"` |  |
-| portal.server.authServer.image.repository | string | `"cle-auth-server"` |  |
+| portal.server.authServer.image.repository | string | `"hce-auth-server"` |  |
 | portal.server.authServer.image.tag | string | `"2.3.0"` |  |
 | portal.server.authServer.resources | object | `{}` |  |
 | portal.server.customLabels | object | `{}` |  |
 | portal.server.graphqlServer.containerPort | int | `8080` |  |
 | portal.server.graphqlServer.genericEnv.AGENT_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
 | portal.server.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
-| portal.server.graphqlServer.genericEnv.EVENT_TRACKER_IMAGE | string | `"chaosnative/cle-event-tracker:2.3.0"` |  |
+| portal.server.graphqlServer.genericEnv.EVENT_TRACKER_IMAGE | string | `"chaosnative/hce-event-tracker:2.3.0"` |  |
 | portal.server.graphqlServer.genericEnv.HUB_BRANCH_NAME | string | `"v2.2.x"` |  |
 | portal.server.graphqlServer.genericEnv.SELF_CLUSTER | string | `"true"` |  |
-| portal.server.graphqlServer.genericEnv.SUBSCRIBER_IMAGE | string | `"chaosnative/cle-subscriber:2.3.0"` |  |
+| portal.server.graphqlServer.genericEnv.SUBSCRIBER_IMAGE | string | `"chaosnative/hce-subscriber:2.3.0"` |  |
 | portal.server.graphqlServer.image.pullPolicy | string | `"Always"` |  |
-| portal.server.graphqlServer.image.repository | string | `"cle-server"` |  |
+| portal.server.graphqlServer.image.repository | string | `"hce-server"` |  |
 | portal.server.graphqlServer.image.tag | string | `"2.3.0"` |  |
 | portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"litmuschaos/workflow-controller:v2.11.0"` |  |
 | portal.server.graphqlServer.imageEnv.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"litmuschaos/argoexec:v2.11.0"` |  |
@@ -131,7 +131,7 @@ Kubernetes: `>=1.16.0-0`
 | portal.server.graphqlServer.resources | object | `{}` |  |
 | portal.server.licenseServer.containerPort | int | `8080` |  |
 | portal.server.licenseServer.image.pullPolicy | string | `"Always"` |  |
-| portal.server.licenseServer.image.repository | string | `"cle-license-module"` |  |
+| portal.server.licenseServer.image.repository | string | `"hce-license-module"` |  |
 | portal.server.licenseServer.image.tag | string | `"2.3.0"` |  |
 | portal.server.licenseServer.service.port | int | `80` |  |
 | portal.server.licenseServer.service.targetPort | int | `8080` |  |

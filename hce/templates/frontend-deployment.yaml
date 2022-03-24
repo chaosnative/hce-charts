@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "cle.fullname" . }}-frontend
+  name: {{ include "hce.fullname" . }}-frontend
   namespace:  {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/component: {{ include "cle.name" . }}-frontend
-    {{- include "cle.labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ include "hce.name" . }}-frontend
+    {{- include "hce.labels" . | nindent 4 }}
     {{- if .Values.portal.frontend.customLabels }}
       {{ toYaml .Values.portal.frontend.customLabels | nindent 4 }}
     {{- end }}
@@ -17,12 +17,12 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      app.kubernetes.io/component: {{ include "cle.name" . }}-frontend
+      app.kubernetes.io/component: {{ include "hce.name" . }}-frontend
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: {{ include "cle.name" . }}-frontend
-        {{- include "cle.labels" . | nindent 8 }}
+        app.kubernetes.io/component: {{ include "hce.name" . }}-frontend
+        {{- include "hce.labels" . | nindent 8 }}
         {{- if .Values.portal.frontend.customLabels }}
           {{ toYaml .Values.portal.frontend.customLabels | nindent 8 }}
         {{- end }}
@@ -34,7 +34,7 @@ spec:
       volumes:
         - name: nginx-config
           configMap:
-            name: {{ include "cle.fullname" . }}-frontend-nginx-configuration
+            name: {{ include "hce.fullname" . }}-frontend-nginx-configuration
       containers:
         - name: litmusportal-frontend
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.frontend.image.repository }}:{{ .Values.portal.frontend.image.tag }}
@@ -58,7 +58,7 @@ spec:
             - name: AGENT_SCOPE
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "cle.fullname" . }}-admin-config
+                  name: {{ include "hce.fullname" . }}-admin-config
                   key: AGENT_SCOPE
           volumeMounts:
             - name: nginx-config

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: license-server
+  name: {{ include "hce.fullname" . }}-license-server
   namespace:  {{ .Release.Namespace }}
   labels:
     component: license-server
@@ -26,7 +26,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             [
-                "while [[ $(curl -sw '%{http_code}' http://{{ include "cle.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+                "while [[ $(curl -sw '%{http_code}' http://{{ include "hce.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
                                                                                            ]
           resources:
             {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
@@ -35,9 +35,9 @@ spec:
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.licenseServer.image.repository }}:{{ .Values.portal.server.licenseServer.image.tag }}
           envFrom:
             - secretRef:
-                name: {{ include "cle.fullname" . }}-admin-secret
+                name: {{ include "hce.fullname" . }}-admin-secret
             - configMapRef:
-                name: {{ include "cle.fullname" . }}-admin-config
+                name: {{ include "hce.fullname" . }}-admin-config
           env:
             - name: NAMESPACE
               valueFrom:
