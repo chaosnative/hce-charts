@@ -38,5 +38,5 @@ jobs:
 
       - name: Copy files to the s3 bucket
         run: |
-          aws s3 sync k8s-manifests s3://chaosnative-charts/manifests
+          aws s3 sync k8s-manifests s3://hce-charts/manifests
 

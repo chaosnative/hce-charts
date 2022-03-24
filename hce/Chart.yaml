@@ -11,6 +11,7 @@ keywords:
   - chaos-engineering
   - resiliency
   - kubernetes
+  - harness
 maintainers:
   - name: Raj Babu Das
     email: rajbabu.das@harness.io
