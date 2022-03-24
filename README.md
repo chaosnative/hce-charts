@@ -83,9 +83,8 @@ Or
 export HCE_NAMESPACE="<namespace>"
 kubectl create ns ${HCE_NAMESPACE}
 kubectl apply -f http://hce.chaosnative.com/manifests/ci/hce-crds.yaml
-curl http://hce.chaosnative.com/manifests/ci/hce-namespace-scope.yaml --output hce-namespaced-k8s-template.yml
-
-envsubst '${HCE_NAMESPACE}' < hce-namespaced-k8s-template.yml > ${HCE_NAMESPACE}-ns-scoped-hce-manifest.yml
+wget http://hce.chaosnative.com/manifests/ci/hce-namespace.yaml
+envsubst '${HCE_NAMESPACE}' < hce-namespace.yaml > ${HCE_NAMESPACE}-ns-scoped-hce-manifest.yml
 kubectl apply -f ${HCE_NAMESPACE}-ns-scoped-hce-manifest.yml -n ${HCE_NAMESPACE}
 ```
 
