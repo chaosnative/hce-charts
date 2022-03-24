@@ -1,4 +1,4 @@
-# Helm Charts- Harness Chaos Enterprise
+# Harness Chaos Enterprise
 
 ## Usage
 
@@ -7,11 +7,11 @@
 - Install [helm3](https://helm.sh/docs/intro/install/)
 - Kubernetes >= 1.17
 
-### Installation Steps
+## Installation via Helm
 
 The following steps will help you install hce via helm.
 
-#### Step-1: Add the litmus helm repository
+#### Step-1: Add the harness helm repository
 
 ```bash
 helm repo add harness https://hce.chaosnative.com
@@ -31,7 +31,7 @@ harness     https://hce.chaosnative.com
 kubectl create ns litmus
 ```
 
-#### Step-3: Install the litmus chaos center
+#### Step-3: Install the hce chaos center
 
 ```bash
 helm install -n litmus hce harness/hce
@@ -64,5 +64,28 @@ Output:
 ```bash
 release "hce" uninstalled
 ```
-
 ---
+
+## Installation via Kubectl
+
+
+> Master (Latest) Cluster scope. Install in litmus namespace by default.
+
+```bash
+kubectl apply -f http://hce.chaosnative.com/manifests/ci/hce-cluster-scope.yaml
+```
+
+Or
+
+> Master (Latest) Namespaced scope. Replace `<namespace>` with the desired namespace.
+
+```bash
+export HCE_NAMESPACE="<namespace>"
+kubectl create ns ${HCE_NAMESPACE}
+kubectl apply -f http://hce.chaosnative.com/manifests/ci/hce-crds.yaml
+curl http://hce.chaosnative.com/manifests/ci/hce-namespace-scope.yaml --output hce-namespaced-k8s-template.yml
+
+envsubst '${HCE_NAMESPACE}' < hce-namespaced-k8s-template.yml > ${HCE_NAMESPACE}-ns-scoped-hce-manifest.yml
+kubectl apply -f ${HCE_NAMESPACE}-ns-scoped-hce-manifest.yml -n ${HCE_NAMESPACE}
+```
+
