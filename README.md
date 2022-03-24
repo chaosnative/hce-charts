@@ -40,7 +40,7 @@ helm install -n litmus hce harness/hce
 Output:
 ```bash
 NAME: hce
-LAST DEPLOYED: Mon Dec  6 01:43:14 2021
+LAST DEPLOYED: Fri Mar  25 01:43:14 2022
 NAMESPACE: litmus
 STATUS: deployed
 REVISION: 1
