@@ -14,7 +14,7 @@ adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
-  VERSION: "2.3.0"
+  VERSION: "master-ci"
   # -- leave empty if uses Mongo DB deployed by this chart
   DB_SERVER: ""
   DB_PORT: "27017"
@@ -71,7 +71,7 @@ portal:
     ##       maxUnavailable: 25%
     image:
       repository: hce-frontend
-      tag: 2.3.0
+      tag: master-ci
       pullPolicy: "Always"
     containerPort: 8080
     customLabels: {}
@@ -170,7 +170,7 @@ portal:
     licenseServer:
       image:
         repository: hce-license-module
-        tag: 2.3.0
+        tag: master-ci
         pullPolicy: "Always"
       containerPort: 8080
       resources: 
@@ -194,7 +194,7 @@ portal:
     graphqlServer:
       image:
         repository: hce-server
-        tag: 2.3.0
+        tag: master-ci
         pullPolicy: "Always"
       containerPort: 8080
       imageEnv:
@@ -208,8 +208,8 @@ portal:
         CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
         HUB_BRANCH_NAME: "v2.2.x"
         AGENT_DEPLOYMENTS: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
-        SUBSCRIBER_IMAGE: "chaosnative/hce-subscriber:2.3.0"
-        EVENT_TRACKER_IMAGE: "chaosnative/hce-event-tracker:2.3.0"
+        SUBSCRIBER_IMAGE: "chaosnative/hce-subscriber:master-ci"
+        EVENT_TRACKER_IMAGE: "chaosnative/hce-event-tracker:master-ci"
       resources: 
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
@@ -237,7 +237,7 @@ portal:
     authServer:
       image:
         repository: hce-auth-server
-        tag: 2.3.0
+        tag: master-ci
         pullPolicy: "Always"
       containerPort: 3000
       env:

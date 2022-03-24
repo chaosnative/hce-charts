@@ -1,4 +1,4 @@
-# Helm Charts Harness Chaos Enterprise
+# Helm Charts- Harness Chaos Enterprise
 
 ## Usage
 
@@ -54,7 +54,7 @@ Visit https://harness.io to find more info.
 ```
 
 
-#### Step-3: Uninstall the Harness CHaos Enterprise
+#### Step-3: Uninstall the Harness Chaos Enterprise
 
 ```bash
 helm uninstall hce --namespace=litmus
