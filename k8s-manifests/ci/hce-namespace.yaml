@@ -766,6 +766,8 @@ spec:
         component: litmusportal-auth-server
     spec:
       automountServiceAccountToken: false
+      imagePullSecrets:
+        - name: regcred
       initContainers:
         - name: wait-for-mongodb
           image: litmuschaos/curl:2.6.0
