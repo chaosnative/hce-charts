@@ -811,6 +811,10 @@ spec:
               value: "litmusportal-server-service"
             - name: LITMUS_GQL_GRPC_PORT
               value: ":8000"
+            - name: REMOTE_HUB_MAX_SIZE
+              value: "5000000"
+            - name: LITMUS_CORE_VERSION
+              value: "2.7.0"
           ports:
             - containerPort: 3000
             - containerPort: 3030

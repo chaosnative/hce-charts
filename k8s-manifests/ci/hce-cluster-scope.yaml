@@ -749,6 +749,8 @@ spec:
               value: ":3030"
             - name: REMOTE_HUB_MAX_SIZE
               value: "5000000"
+            - name: LITMUS_CORE_VERSION
+              value: "2.7.0"              
           ports:
             - containerPort: 8080
             - containerPort: 8000
