@@ -4,7 +4,6 @@ metadata:
   name: {{ include "hce.fullname" . }}-license-server
   namespace:  {{ .Release.Namespace }}
   labels:
-  labels:
     app.kubernetes.io/component: {{ include "hce.name" . }}-license-server
     {{- include "hce.labels" . | nindent 4 }}
 spec:
@@ -12,10 +11,14 @@ spec:
   selector:
     matchLabels:
       component: license-server
+      app.kubernetes.io/component: {{ include "hce.name" . }}-license-server
+      {{- include "hce.labels" . | nindent 4 }}
   template:
     metadata:
       labels:
         component: license-server
+        app.kubernetes.io/component: {{ include "hce.name" . }}-license-server
+        {{- include "hce.labels" . | nindent 4 }}
     spec:
       {{- with .Values.image.imagePullSecrets }}
       imagePullSecrets:
