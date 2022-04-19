@@ -1,5 +1,5 @@
 ### RBAC Manifests
-## If SELF_CLUSTER="true" then these permissions are required to apply 
+## If SELF_CLUSTER="true" then these permissions are required to apply
 ## https://github.com/chaosnative/hce/blob/master/litmus-portal/graphql-server/manifests/namespace/1b_argo_rbac.yaml
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -20,7 +20,8 @@ rules:
     resources: [workflows, workflows/finalizers]
     verbs: [get, list, watch, update, patch, delete, create]
   - apiGroups: [argoproj.io]
-    resources: [workflowtemplates, workflowtemplates/finalizers,workflowtasksets]
+    resources:
+      [workflowtemplates, workflowtemplates/finalizers, workflowtasksets]
     verbs: [get, list, watch]
   - apiGroups: [""]
     resources: [serviceaccounts]
@@ -118,7 +119,7 @@ metadata:
     name: subscriber-role-for-litmusportal-server
 rules:
   - apiGroups: [""]
-    resources: [configmaps]
+    resources: [configmaps, secrets]
     verbs: [get, create, delete, update]
 
   - apiGroups: [""]
@@ -142,7 +143,16 @@ rules:
     verbs: [get, list, delete]
 
   - apiGroups: [argoproj.io]
-    resources: [workflows, workflows/finalizers, workflowtemplates, workflowtemplates/finalizers, cronworkflows, cronworkflows/finalizers, rollouts]
+    resources:
+      [
+        workflows,
+        workflows/finalizers,
+        workflowtemplates,
+        workflowtemplates/finalizers,
+        cronworkflows,
+        cronworkflows/finalizers,
+        rollouts,
+      ]
     verbs: [get, list, create, delete, update, watch]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -297,12 +307,11 @@ rules:
   # for creation & deletion of application in predefined workflows
   - apiGroups: [apps]
     resources: [deployments, statefulsets]
-    verbs: [get, watch, patch , create, delete]
+    verbs: [get, watch, patch, create, delete]
 
   # for creation, status polling and deletion of litmus chaos resources used within a chaos workflow
   - apiGroups: [litmuschaos.io]
-    resources:
-      [chaosengines, chaosexperiments, chaosresults, chaosschedules]
+    resources: [chaosengines, chaosexperiments, chaosresults, chaosschedules]
     verbs: [create, list, get, patch, delete, watch]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -330,7 +339,8 @@ rules:
     resources: [eventtrackerpolicies/status]
     verbs: [get, patch, update]
   - apiGroups: ["", extensions, apps]
-    resources: [deployments, daemonsets, statefulsets, pods, configmaps]
+    resources:
+      [deployments, daemonsets, statefulsets, pods, configmaps, secrets]
     verbs: [get, list, watch]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -357,7 +367,7 @@ rules:
     resources: [ingresses]
     verbs: [get]
   - apiGroups: [""]
-    resources: [services,  pods/log]
+    resources: [services, pods/log]
     verbs: [get, watch]
   - apiGroups: [apps]
     resources: [deployments]
@@ -511,7 +521,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             [
-                "while [[ $(curl -sw '%{http_code}' http://mongo-service:27017 -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+              "while [[ $(curl -sw '%{http_code}' http://mongo-service:27017 -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
             ]
           resources:
             requests:
@@ -519,7 +529,7 @@ spec:
               cpu: "25m"
               ephemeral-storage: "100Mi"
             limits:
-              memory: "200Mi" 
+              memory: "200Mi"
               cpu: "75m"
               ephemeral-storage: "200Mi"
       containers:
@@ -597,7 +607,7 @@ spec:
               cpu: "25m"
               ephemeral-storage: "500Mi"
             limits:
-              memory: "512Mi" 
+              memory: "512Mi"
               cpu: "250m"
               ephemeral-storage: "1Gi"
           volumeMounts:
@@ -646,7 +656,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             [
-                "while [[ $(curl -sw '%{http_code}' http://mongo-service:27017 -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+              "while [[ $(curl -sw '%{http_code}' http://mongo-service:27017 -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
             ]
           resources:
             requests:
@@ -654,7 +664,7 @@ spec:
               cpu: "25m"
               ephemeral-storage: "100Mi"
             limits:
-              memory: "200Mi" 
+              memory: "200Mi"
               cpu: "75m"
               ephemeral-storage: "200Mi"
       volumes:
@@ -693,7 +703,7 @@ spec:
             - name: PORTAL_SCOPE
               value: "namespace"
             - name: AGENT_DEPLOYMENTS
-              value: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
+              value: '["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]'
             - name: PORTAL_ENDPOINT
               value: "http://litmusportal-server-service:9002"
             - name: SUBSCRIBER_IMAGE
@@ -778,7 +788,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             [
-                "while [[ $(curl -sw '%{http_code}' http://mongo-service:27017 -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+              "while [[ $(curl -sw '%{http_code}' http://mongo-service:27017 -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
             ]
           resources:
             requests:
