@@ -49,7 +49,6 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${HCE_NAMESPACE}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -107,7 +106,6 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${HCE_NAMESPACE}
 #these permissions are required to apply https://github.com/chaosnative/hce/blob/master/litmus-portal/graphql-server/manifests/namespace/3a_agents_rbac.yaml
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -118,7 +116,7 @@ metadata:
     name: subscriber-role-for-litmusportal-server
 rules:
   - apiGroups: [""]
-    resources: [configmaps]
+    resources: [configmaps, secrets]
     verbs: [get, create, delete, update]
 
   - apiGroups: [""]
@@ -152,7 +150,6 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${HCE_NAMESPACE}
 roleRef:
   kind: Role
   name: subscriber-role-for-litmusportal-server
@@ -277,7 +274,6 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${HCE_NAMESPACE}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -316,7 +312,6 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${HCE_NAMESPACE}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -330,7 +325,7 @@ rules:
     resources: [eventtrackerpolicies/status]
     verbs: [get, patch, update]
   - apiGroups: ["", extensions, apps]
-    resources: [deployments, daemonsets, statefulsets, pods, configmaps]
+    resources: [deployments, daemonsets, statefulsets, pods, configmaps, secrets]
     verbs: [get, list, watch]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -344,7 +339,6 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${HCE_NAMESPACE}
 # litmus-server-role is used by the litmusportal-server
 # If SELF_CLUSTER=false, then only litmus-server-role and litmus-server-rb are required.
 ---
@@ -383,7 +377,6 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: litmus-server-account
-    namespace: ${HCE_NAMESPACE}
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -396,7 +389,6 @@ data:
 kind: Secret
 metadata:
   name: regcred
-  namespace: ${HCE_NAMESPACE}
 type: kubernetes.io/dockerconfigjson
 ---
 apiVersion: v1
@@ -414,7 +406,6 @@ metadata:
   name: litmus-portal-admin-config
 data:
   AGENT_SCOPE: namespace
-  AGENT_NAMESPACE: ${HCE_NAMESPACE}
   DB_SERVER: "mongodb://mongo-service:27017"
   VERSION: "master-ci"
 ---
@@ -682,6 +673,10 @@ spec:
                 name: litmus-portal-admin-secret
           env:
             - name: LITMUS_PORTAL_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: AGENT_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
