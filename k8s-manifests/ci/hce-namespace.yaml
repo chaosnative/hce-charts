@@ -257,7 +257,7 @@ rules:
   - apiGroups: ["networking.k8s.io"]
     resources: ["networkpolicies"]
     verbs: ["create","delete","list","get"]
-    
+
     # for creation, status polling and deletion of litmus chaos resources used within a chaos workflow
   - apiGroups: [litmuschaos.io]
     resources: [chaosengines, chaosexperiments, chaosresults]
@@ -516,7 +516,7 @@ spec:
         - name: regcred
       initContainers:
         - name: wait-for-mongodb
-          image: litmuschaos/curl:latest
+          image: litmuschaos/curl:2.6.0
           command: ["/bin/sh", "-c"]
           args:
             [
@@ -656,7 +656,7 @@ spec:
         - name: regcred
       initContainers:
         - name: wait-for-mongodb
-          image: litmuschaos/curl:latest
+          image: litmuschaos/curl:2.6.0
           command: ["/bin/sh", "-c"]
           args:
             [
@@ -784,7 +784,7 @@ spec:
       automountServiceAccountToken: false
       initContainers:
         - name: wait-for-mongodb
-          image: litmuschaos/curl:latest
+          image: litmuschaos/curl:2.6.0
           command: ["/bin/sh", "-c"]
           args:
             [
