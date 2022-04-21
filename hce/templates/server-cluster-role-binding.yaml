@@ -12,7 +12,7 @@ roleRef:
   name: argo-cr-for-{{ include "hce.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -33,7 +33,7 @@ roleRef:
   name: litmus-cluster-scope-for-{{ include "hce.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -50,7 +50,7 @@ roleRef:
   name: litmus-admin-cr-for-{{ include "hce.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -66,7 +66,7 @@ roleRef:
   name: chaos-cr-for-{{ include "hce.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -78,7 +78,7 @@ metadata:
     {{- include "hce.labels" . | nindent 4 }}
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
@@ -98,7 +98,7 @@ roleRef:
   name: event-tracker-cr-for-{{ include "hce.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -114,6 +114,6 @@ roleRef:
   name: litmus-server-cr-for-{{ include "hce.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace: {{ .Release.Namespace }}
 {{ end }}

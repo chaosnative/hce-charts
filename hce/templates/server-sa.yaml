@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ .Values.portal.server.serviceAccountName }}
+  name: {{ .Values.portal.graphqlServer.serviceAccountName }}
   namespace:  {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/component: {{ include "hce.name" . }}-server

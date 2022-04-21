@@ -13,7 +13,7 @@ roleRef:
   name: argo-role-for-{{ include "hce.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace:  {{ .Release.Namespace }}
 #these permissions are required to apply https://github.com/litmuschaos/litmus/blob/master/litmus-portal/graphql-server/manifests/namespace/2a_litmus_rbac.yaml
 ---
@@ -38,7 +38,7 @@ roleRef:
   name: litmus-namespace-scope-for-{{ include "hce.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace:  {{ .Release.Namespace }}
 #these permissions are required to apply https://github.com/litmuschaos/litmus/blob/master/litmus-portal/graphql-server/manifests/namespace/3a_agents_rbac.yaml
 ---
@@ -52,7 +52,7 @@ metadata:
     {{- include "hce.labels" . | nindent 4 }}
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace:  {{ .Release.Namespace }}
 roleRef:
   kind: Role
@@ -74,7 +74,7 @@ roleRef:
   name: litmus-admin-role-for-{{ include "hce.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace:  {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -91,7 +91,7 @@ roleRef:
   name: chaos-role-for-{{ include "hce.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace:  {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -108,7 +108,7 @@ roleRef:
   name: event-tracker-role-for-{{ include "hce.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace:  {{ .Release.Namespace }}
 # litmus-server-role is used by the litmusportal-server
 # If SELF_CLUSTER=false, then only litmus-server-role and litmus-server-rb are required.
@@ -127,6 +127,6 @@ roleRef:
   name: litmus-server-role-for-{{ include "hce.fullname" . }}-server
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.portal.server.serviceAccountName }}
+    name: {{ .Values.portal.graphqlServer.serviceAccountName }}
     namespace:  {{ .Release.Namespace }}
 {{ end }}

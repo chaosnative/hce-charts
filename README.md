@@ -80,11 +80,8 @@ Or
 > Master (Latest) Namespaced scope. Replace `litmus` with the desired namespace.
 
 ```bash
-export HCE_NAMESPACE="litmus"
-kubectl create ns ${HCE_NAMESPACE}
+kubectl create ns litmus
 kubectl apply -f http://hce.chaosnative.com/manifests/ci/hce-crds.yaml
-wget http://hce.chaosnative.com/manifests/ci/hce-namespace.yaml
-envsubst '${HCE_NAMESPACE}' < hce-namespace.yaml > ${HCE_NAMESPACE}-ns-scoped-hce-manifest.yml
-kubectl apply -f ${HCE_NAMESPACE}-ns-scoped-hce-manifest.yml -n ${HCE_NAMESPACE}
+kubectl apply -f http://hce.chaosnative.com/manifests/ci/hce-namespace.yaml -n litmus
 ```
 
