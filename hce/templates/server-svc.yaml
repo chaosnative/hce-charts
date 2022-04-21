@@ -10,14 +10,14 @@ spec:
   {{- if .Values.ingress.enabled }}
   type: ClusterIP
   {{- else }}
-  type: {{ .Values.portal.server.service.type }}
+  type: {{ .Values.portal.graphqlServer.service.type }}
   {{- end }}
   ports:
-    - name: graphql-server
-      port: {{ .Values.portal.server.service.graphqlServer.port }}
-      targetPort: {{ .Values.portal.server.service.graphqlServer.targetPort }}
-    - name: auth-server
-      port: {{ .Values.portal.server.service.authServer.port }}
-      targetPort: {{ .Values.portal.server.service.authServer.targetPort }}
+    - name: gql-server
+      port: {{ .Values.portal.graphqlServer.service.graphqlServer.port }}
+      targetPort: {{ .Values.portal.graphqlServer.service.graphqlServer.targetPort }}
+    - name: gql-rpc-server
+      port: {{ .Values.portal.graphqlServer.service.graphqlRPCServer.port }}
+      targetPort: {{ .Values.portal.graphqlServer.service.graphqlRPCServer.targetPort }}
   selector:
     app.kubernetes.io/component: {{ include "hce.name" . }}-server

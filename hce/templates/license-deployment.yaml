@@ -10,15 +10,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      component: license-server
       app.kubernetes.io/component: {{ include "hce.name" . }}-license-server
-      {{- include "hce.labels" . | nindent 4 }}
   template:
     metadata:
       labels:
-        component: license-server
         app.kubernetes.io/component: {{ include "hce.name" . }}-license-server
-        {{- include "hce.labels" . | nindent 4 }}
+        {{- include "hce.labels" . | nindent 8 }}
     spec:
       {{- with .Values.image.imagePullSecrets }}
       imagePullSecrets:
@@ -26,18 +23,18 @@ spec:
       {{- end }}
       initContainers:
         - name: wait-for-mongodb
-          image: litmuschaos/{{ .Values.portal.server.waitForMongodb.image.repository }}:{{ .Values.portal.server.waitForMongodb.image.tag }}
-          imagePullPolicy: {{ .Values.portal.server.waitForMongodb.image.pullPolicy }}
+          image: litmuschaos/{{ .Values.portal.waitForMongodb.image.repository }}:{{ .Values.portal.waitForMongodb.image.tag }}
+          imagePullPolicy: {{ .Values.portal.waitForMongodb.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
           args:
             [
-                "while [[ $(curl -sw '%{http_code}' http://{{ include "hce.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
-                                                                                           ]
+              "while [[ $(curl -sw '%{http_code}' http://{{ include "hce.fullname" . }}-mongo:{{ .Values.adminConfig.DB_PORT }} -o /dev/null) -ne 200 ]]; do sleep 5; echo 'Waiting for the MongoDB to be ready...'; done; echo 'Connection with MongoDB established'",
+            ]
           resources:
-            {{- toYaml .Values.portal.server.waitForMongodb.resources | nindent 12 }}
+            {{- toYaml .Values.portal.waitForMongodb.resources | nindent 12 }}
       containers:
         - name: license-server
-          image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.server.licenseServer.image.repository }}:{{ .Values.portal.server.licenseServer.image.tag }}
+          image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.licenseServer.image.repository }}:{{ .Values.portal.licenseServer.image.tag }}
           envFrom:
             - secretRef:
                 name: {{ include "hce.fullname" . }}-admin-secret
@@ -49,8 +46,8 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
           ports:
-            - containerPort: {{ .Values.portal.server.licenseServer.containerPort }}
+            - containerPort: {{ .Values.portal.licenseServer.containerPort }}
           imagePullPolicy: Always
           resources:
-            {{- toYaml .Values.portal.server.licenseServer.resources | nindent 12 }}
-      serviceAccountName: {{ .Values.portal.server.serviceAccountName }}
+            {{- toYaml .Values.portal.licenseServer.resources | nindent 12 }}
+      serviceAccountName: {{ .Values.portal.licenseServer.serviceAccountName }}

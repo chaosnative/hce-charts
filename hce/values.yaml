@@ -87,7 +87,7 @@ portal:
         memory: 512Mi
         ephemeral-storage: "1Gi"
       requests:
-        cpu: 25m
+        cpu: 250m
         memory: 300Mi
         ephemeral-storage: "500Mi"
     livenessProbe:
@@ -113,7 +113,90 @@ portal:
     tolerations: []
     affinity: {}
 
-  server:
+  authServer:
+    replicas: 1
+    updateStrategy: {}
+    ## Strategy for deployment updates.
+    ##
+    ## Example:
+    ##
+    ##   strategy:
+    ##     type: RollingUpdate
+    ##     rollingUpdate:
+    ##       maxSurge: 1
+    ##       maxUnavailable: 25%
+    serviceAccountName: default
+    customLabels: {}
+
+    image:
+      repository: hce-auth-server
+      tag: master-ci
+      pullPolicy: "Always"
+    serverContainerPort: 3000
+    rpcContainerPort: 3030
+    env:
+      ADMIN_USERNAME: "admin"
+      ADMIN_PASSWORD: "litmus"
+      STRICT_PASSWORD_POLICY: "false"
+
+    resources:
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      limits:
+        cpu: 250m
+        memory: 512Mi
+        ephemeral-storage: "1Gi"
+      requests:
+        cpu: 250m
+        memory: 300Mi
+        ephemeral-storage: "500Mi"
+
+    service:
+      type: NodePort
+      authServer:
+        port: 9003
+        targetPort: 3000
+      authRPCServer:
+        port: 3030
+        targertPort: 3030
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+
+  licenseServer:
+    image:
+      repository: hce-license-module
+      tag: master-ci
+      pullPolicy: "Always"
+    containerPort: 8080
+
+    serviceAccountName: litmus-server-account
+    resources:
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      limits:
+        cpu: 250m
+        memory: 512Mi
+        ephemeral-storage: "1Gi"
+      requests:
+        cpu: 250m
+        memory: 300Mi
+        ephemeral-storage: "500Mi"
+
+    service:
+      type: NodePort
+      licenseServer:
+        port: 80
+        targetPort: 8080
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+
+  graphqlServer:
     replicas: 1
     updateStrategy: {}
     ## Strategy for deployment updates.
@@ -127,146 +210,103 @@ portal:
     ##       maxUnavailable: 25%
     serviceAccountName: litmus-server-account
     customLabels: {}
-    # my.company.com/tier: "backend"
-    waitForMongodb:
-      image:
-        repository: curl
-        tag: latest
-        pullPolicy: "Always"
-      resources: 
-      # We usually recommend not to specify default resources and to leave this as a conscious
-      # choice for the user. This also increases chances charts run on environments with little
-      # resources, such as Minikube. If you do want to specify resources, uncomment the following
-      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-        limits:
-          cpu: 250m
-          memory: 200Mi
-          ephemeral-storage: "200Mi"
-        requests:
-          cpu: 125m
-          memory: 100Mi
-          ephemeral-storage: "100Mi"
 
-    serverVersionUpdater:
-      image:
-        repository: mongo-utils
-        tag: latest
-        pullPolicy: "Always"
-      resources: 
-      # We usually recommend not to specify default resources and to leave this as a conscious
-      # choice for the user. This also increases chances charts run on environments with little
-      # resources, such as Minikube. If you do want to specify resources, uncomment the following
-      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-        limits:
-          cpu: 225m
-          memory: 200Mi
-          ephemeral-storage: "200Mi"
-        requests:
-          cpu: 125m
-          memory: 100Mi
-          ephemeral-storage: "100Mi"
+    image:
+      repository: hce-server
+      tag: master-ci
+      pullPolicy: "Always"
 
+    serverContainerPort: 8080
+    rpcContainerPort: 8000
 
-    licenseServer:
-      image:
-        repository: hce-license-module
-        tag: master-ci
-        pullPolicy: "Always"
-      containerPort: 8080
-      resources: 
+    imageEnv:
+      ARGO_WORKFLOW_CONTROLLER_IMAGE: "litmuschaos/workflow-controller:v3.2.3"
+      ARGO_WORKFLOW_EXECUTOR_IMAGE: "litmuschaos/argoexec:v3.2.3"
+      LITMUS_CHAOS_OPERATOR_IMAGE: "litmuschaos/chaos-operator:2.7.0"
+      LITMUS_CHAOS_RUNNER_IMAGE: "litmuschaos/chaos-runner:2.7.0"
+      LITMUS_CHAOS_EXPORTER_IMAGE: "litmuschaos/chaos-exporter:2.7.0"
+      SUBSCRIBER_IMAGE: "chaosnative/hce-subscriber:master-ci"
+      EVENT_TRACKER_IMAGE: "chaosnative/hce-event-tracker:master-ci"
+    genericEnv:
+      SELF_CLUSTER: "true"
+      CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
+      HUB_BRANCH_NAME: "v2.7.x"
+      AGENT_DEPLOYMENTS: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
+      REMOTE_HUB_MAX_SIZE: "5000000"
+      LITMUS_CORE_VERSION: "2.7.0"
+    resources:
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
       # resources, such as Minikube. If you do want to specify resources, uncomment the following
       # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-        limits:
-          cpu: 250m
-          memory: 512Mi
-          ephemeral-storage: "1Gi"
-        requests:
-          cpu: 25m
-          memory: 300Mi
-          ephemeral-storage: "500Mi"
-      service:
-        type: ClusterIP
-        port: 80
-        targetPort: 8080
-
-    graphqlServer:
-      image:
-        repository: hce-server
-        tag: master-ci
-        pullPolicy: "Always"
-      containerPort: 8080
-      imageEnv:
-        ARGO_WORKFLOW_CONTROLLER_IMAGE: "litmuschaos/workflow-controller:v2.11.0"
-        ARGO_WORKFLOW_EXECUTOR_IMAGE: "litmuschaos/argoexec:v2.11.0"
-        LITMUS_CHAOS_OPERATOR_IMAGE: "litmuschaos/chaos-operator:2.3.0"
-        LITMUS_CHAOS_RUNNER_IMAGE: "litmuschaos/chaos-runner:2.3.0"
-        LITMUS_CHAOS_EXPORTER_IMAGE: "litmuschaos/chaos-exporter:2.3.0"
-      genericEnv:
-        SELF_CLUSTER: "true"
-        CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-        HUB_BRANCH_NAME: "v2.2.x"
-        AGENT_DEPLOYMENTS: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
-        SUBSCRIBER_IMAGE: "chaosnative/hce-subscriber:master-ci"
-        EVENT_TRACKER_IMAGE: "chaosnative/hce-event-tracker:master-ci"
-      resources: 
-      # We usually recommend not to specify default resources and to leave this as a conscious
-      # choice for the user. This also increases chances charts run on environments with little
-      # resources, such as Minikube. If you do want to specify resources, uncomment the following
-      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-        limits:
-          cpu: 512m
-          memory: 1Gi
-          ephemeral-storage: "1Gi"
-        requests:
-          cpu: 125m
-          memory: 350Mi
-          ephemeral-storage: "500Mi"
-      livenessProbe:
-        failureThreshold: 5
-        initialDelaySeconds: 30
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 5
-      readinessProbe:
-        initialDelaySeconds: 5
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 1
-    authServer:
-      image:
-        repository: hce-auth-server
-        tag: master-ci
-        pullPolicy: "Always"
-      containerPort: 3000
-      env:
-        ADMIN_USERNAME: "admin"
-        ADMIN_PASSWORD: "litmus"
-      resources: 
-      # We usually recommend not to specify default resources and to leave this as a conscious
-      # choice for the user. This also increases chances charts run on environments with little
-      # resources, such as Minikube. If you do want to specify resources, uncomment the following
-      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-        limits:
-          cpu: 250m
-          memory: 512Mi
-          ephemeral-storage: "1Gi"
-        requests:
-          cpu: 25m
-          memory: 150Mi
-          ephemeral-storage: "500Mi"
+      limits:
+        cpu: 512m
+        memory: 1Gi
+        ephemeral-storage: "1Gi"
+      requests:
+        cpu: 125m
+        memory: 350Mi
+        ephemeral-storage: "500Mi"
+    livenessProbe:
+      failureThreshold: 5
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    readinessProbe:
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 1
     service:
       type: NodePort
       graphqlServer:
         port: 9002
         targetPort: 8080
-      authServer:
-        port: 9003
-        targetPort: 3000
+      graphqlRPCServer:
+        port: 8000
+        targertPort: 8000
     nodeSelector: {}
     tolerations: []
     affinity: {}
+
+  waitForMongodb:
+    image:
+      repository: curl
+      tag: latest
+      pullPolicy: "Always"
+    resources:
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      limits:
+        cpu: 250m
+        memory: 200Mi
+        ephemeral-storage: "200Mi"
+      requests:
+        cpu: 125m
+        memory: 100Mi
+        ephemeral-storage: "100Mi"
+
+  serverVersionUpdater:
+    image:
+      repository: mongo-utils
+      tag: latest
+      pullPolicy: "Always"
+    resources:
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      limits:
+        cpu: 225m
+        memory: 200Mi
+        ephemeral-storage: "200Mi"
+      requests:
+        cpu: 125m
+        memory: 100Mi
+        ephemeral-storage: "100Mi"
 
 mongo:
   replicas: 1
