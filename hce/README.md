@@ -137,8 +137,8 @@ Kubernetes: `>=1.16.0-0`
 | portal.graphqlServer.customLabels | object | `{}` |  |
 | portal.graphqlServer.genericEnv.AGENT_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
 | portal.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
-| portal.graphqlServer.genericEnv.HUB_BRANCH_NAME | string | `"v2.7.x"` |  |
-| portal.graphqlServer.genericEnv.LITMUS_CORE_VERSION | string | `"2.7.0"` |  |
+| portal.graphqlServer.genericEnv.HUB_BRANCH_NAME | string | `"v2.8.x"` |  |
+| portal.graphqlServer.genericEnv.LITMUS_CORE_VERSION | string | `"2.8.0"` |  |
 | portal.graphqlServer.genericEnv.REMOTE_HUB_MAX_SIZE | string | `"5000000"` |  |
 | portal.graphqlServer.genericEnv.SELF_CLUSTER | string | `"true"` |  |
 | portal.graphqlServer.image.pullPolicy | string | `"Always"` |  |
@@ -147,9 +147,9 @@ Kubernetes: `>=1.16.0-0`
 | portal.graphqlServer.imageEnv.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"litmuschaos/workflow-controller:v3.2.3"` |  |
 | portal.graphqlServer.imageEnv.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"litmuschaos/argoexec:v3.2.3"` |  |
 | portal.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"chaosnative/hce-event-tracker:2.8.0"` |  |
-| portal.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"litmuschaos/chaos-exporter:2.7.0"` |  |
-| portal.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"litmuschaos/chaos-operator:2.7.0"` |  |
-| portal.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"litmuschaos/chaos-runner:2.7.0"` |  |
+| portal.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"litmuschaos/chaos-exporter:2.8.0"` |  |
+| portal.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"litmuschaos/chaos-operator:2.8.0"` |  |
+| portal.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"litmuschaos/chaos-runner:2.8.0"` |  |
 | portal.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"chaosnative/hce-subscriber:2.8.0"` |  |
 | portal.graphqlServer.livenessProbe.failureThreshold | int | `5` |  |
 | portal.graphqlServer.livenessProbe.initialDelaySeconds | int | `30` |  |

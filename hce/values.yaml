@@ -222,18 +222,18 @@ portal:
     imageEnv:
       ARGO_WORKFLOW_CONTROLLER_IMAGE: "litmuschaos/workflow-controller:v3.2.3"
       ARGO_WORKFLOW_EXECUTOR_IMAGE: "litmuschaos/argoexec:v3.2.3"
-      LITMUS_CHAOS_OPERATOR_IMAGE: "litmuschaos/chaos-operator:2.7.0"
-      LITMUS_CHAOS_RUNNER_IMAGE: "litmuschaos/chaos-runner:2.7.0"
-      LITMUS_CHAOS_EXPORTER_IMAGE: "litmuschaos/chaos-exporter:2.7.0"
+      LITMUS_CHAOS_OPERATOR_IMAGE: "litmuschaos/chaos-operator:2.8.0"
+      LITMUS_CHAOS_RUNNER_IMAGE: "litmuschaos/chaos-runner:2.8.0"
+      LITMUS_CHAOS_EXPORTER_IMAGE: "litmuschaos/chaos-exporter:2.8.0"
       SUBSCRIBER_IMAGE: "chaosnative/hce-subscriber:2.8.0"
       EVENT_TRACKER_IMAGE: "chaosnative/hce-event-tracker:2.8.0"
     genericEnv:
       SELF_CLUSTER: "true"
       CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-      HUB_BRANCH_NAME: "v2.7.x"
+      HUB_BRANCH_NAME: "v2.8.x"
       AGENT_DEPLOYMENTS: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
       REMOTE_HUB_MAX_SIZE: "5000000"
-      LITMUS_CORE_VERSION: "2.7.0"
+      LITMUS_CORE_VERSION: "2.8.0"
     resources:
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
