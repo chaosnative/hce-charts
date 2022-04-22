@@ -38,16 +38,10 @@ Hang tight while we grab the latest from your chart repositories...
 Update Complete. ⎈Happy Helming!⎈
 ```
 
-#### Step-3: Create the litmus namespace
+#### Step-3: Install the hce chaos center
 
 ```bash
-kubectl create ns litmus
-```
-
-#### Step-4: Install the hce chaos center
-
-```bash
-helm install -n litmus hce harness/hce
+helm install -n litmus hce harness/hce --create-namespace
 ```
 
 Output:
@@ -64,7 +58,7 @@ Your release is named hce and it's installed to namespace: litmus.
 Visit https://harness.io to find more info.
 ```
 
-#### Step-5: Uninstall the Harness Chaos Enterprise
+#### Step-4: Uninstall the Harness Chaos Enterprise
 
 ```bash
 helm uninstall hce --namespace=litmus
