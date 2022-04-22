@@ -160,7 +160,7 @@ portal:
         targetPort: 3000
       authRPCServer:
         port: 3030
-        targertPort: 3030
+        targetPort: 3030
     nodeSelector: {}
     tolerations: []
     affinity: {}
@@ -265,7 +265,7 @@ portal:
         targetPort: 8080
       graphqlRPCServer:
         port: 8000
-        targertPort: 8000
+        targetPort: 8000
     nodeSelector: {}
     tolerations: []
     affinity: {}

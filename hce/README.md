@@ -93,7 +93,7 @@ Kubernetes: `>=1.16.0-0`
 | portal.authServer.rpcContainerPort | int | `3030` |  |
 | portal.authServer.serverContainerPort | int | `3000` |  |
 | portal.authServer.service.authRPCServer.port | int | `3030` |  |
-| portal.authServer.service.authRPCServer.targertPort | int | `3030` |  |
+| portal.authServer.service.authRPCServer.targetPort | int | `3030` |  |
 | portal.authServer.service.authServer.port | int | `9003` |  |
 | portal.authServer.service.authServer.targetPort | int | `3000` |  |
 | portal.authServer.service.type | string | `"NodePort"` |  |
@@ -169,7 +169,7 @@ Kubernetes: `>=1.16.0-0`
 | portal.graphqlServer.rpcContainerPort | int | `8000` |  |
 | portal.graphqlServer.serverContainerPort | int | `8080` |  |
 | portal.graphqlServer.service.graphqlRPCServer.port | int | `8000` |  |
-| portal.graphqlServer.service.graphqlRPCServer.targertPort | int | `8000` |  |
+| portal.graphqlServer.service.graphqlRPCServer.targetPort | int | `8000` |  |
 | portal.graphqlServer.service.graphqlServer.port | int | `9002` |  |
 | portal.graphqlServer.service.graphqlServer.targetPort | int | `8080` |  |
 | portal.graphqlServer.service.type | string | `"NodePort"` |  |
