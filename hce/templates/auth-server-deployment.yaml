@@ -64,7 +64,7 @@ spec:
               value: {{ $val | quote }}
             {{- end }}
             - name: LITMUS_GQL_GRPC_ENDPOINT
-              value: "http://{{ include "hce.fullname" . }}-server-service"
+              value: "{{ include "hce.fullname" . }}-server-service"
             - name: LITMUS_GQL_GRPC_PORT
               value: ":{{ .Values.portal.graphqlServer.service.graphqlRPCServer.targetPort }}"
     {{- with .Values.portal.authServer.nodeSelector }}

@@ -43,37 +43,6 @@ spec:
             ]
           resources:
             {{- toYaml .Values.portal.waitForMongodb.resources | nindent 12 }}
-        - name: server-version-updater
-          image: litmuschaos/{{ .Values.portal.serverVersionUpdater.image.repository }}:{{ .Values.portal.serverVersionUpdater.image.tag }}
-          imagePullPolicy: {{ .Values.portal.serverVersionUpdater.image.pullPolicy }}
-          command: ["/bin/sh", "-c"]
-          args:
-            [
-              "mongo $DB_SERVER --username $DB_USER --password $DB_PASSWORD --eval 'db=db.getSiblingDB(\"litmus\");db.getCollection(\"server-config-collection\").updateOne({\"key\":\"version\"},{ \"$set\":{ \"value\":\"'$VERSION'\"}})'"
-            ]
-          env:
-            - name: VERSION
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "hce.fullname" . }}-admin-config
-                  key: VERSION
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "hce.fullname" . }}-admin-secret
-                  key: DB_USER
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "hce.fullname" . }}-admin-secret
-                  key: DB_PASSWORD
-            - name: DB_SERVER
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "hce.fullname" . }}-admin-config
-                  key: DB_SERVER   
-          resources:
-            {{- toYaml .Values.portal.serverVersionUpdater.resources | nindent 12 }}
       containers:
         - name: graphql-server
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.graphqlServer.image.repository }}:{{ .Values.portal.graphqlServer.image.tag }}
@@ -114,7 +83,7 @@ spec:
               value: "http://{{ include "hce.fullname" . }}-server-service:{{ .Values.portal.graphqlServer.service.graphqlServer.port }}"
             {{- end }}
             - name: LITMUS_AUTH_GRPC_ENDPOINT
-              value: "http://{{ include "hce.fullname" . }}-auth-server-service"
+              value: "{{ include "hce.fullname" . }}-auth-server-service"
             - name: LITMUS_AUTH_GRPC_PORT
               value: ":{{ .Values.portal.authServer.service.authRPCServer.targetPort }}"
             - name: INGRESS

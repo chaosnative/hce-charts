@@ -6,6 +6,7 @@ metadata:
   name: {{ $fullName }}-route
   namespace:  {{ .Release.Namespace }}
   labels:
+    app.kubernetes.io/part-of: {{ $fullName }}-server
     app.kubernetes.io/part-of: {{ $fullName }}-frontend
   {{- with .Values.openshift.route.annotations }}
   annotations:
@@ -21,5 +22,5 @@ spec:
     termination: edge
   to:
     kind: Service
-    name: litmusportal-frontend-service
+    name: {{ $fullName }}-frontend-service
 {{- end }}
