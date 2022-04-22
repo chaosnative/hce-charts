@@ -13,7 +13,7 @@ spec:
   type: {{ .Values.portal.graphqlServer.service.type }}
   {{- end }}
   ports:
-    - name: gql-server
+    - name: graphql-server
       port: {{ .Values.portal.graphqlServer.service.graphqlServer.port }}
       targetPort: {{ .Values.portal.graphqlServer.service.graphqlServer.targetPort }}
     - name: gql-rpc-server

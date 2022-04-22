@@ -57,12 +57,12 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: gql-server
+              port: graphql-server
             {{- toYaml .Values.portal.graphqlServer.livenessProbe | nindent 12 }}
           readinessProbe:
             httpGet:
               path: /
-              port: gql-server
+              port: graphql-server
             {{- toYaml .Values.portal.graphqlServer.readinessProbe | nindent 12 }}
           envFrom:
             - secretRef:
