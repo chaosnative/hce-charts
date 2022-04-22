@@ -1,4 +1,4 @@
-# Harness Chaos Enterprise
+# Harness Chaos Engineering Enterprise
 
 ## Usage
 
@@ -38,7 +38,7 @@ Hang tight while we grab the latest from your chart repositories...
 Update Complete. ⎈Happy Helming!⎈
 ```
 
-#### Step-3: Install the hce chaos center
+#### Step-3: Install the HCE chaos center
 
 ```bash
 helm install -n litmus hce harness/hce --create-namespace
@@ -76,7 +76,7 @@ release "hce" uninstalled
 > 2.8.0 Cluster scope. Install in litmus namespace by default.
 
 ```bash
-kubectl apply -f http://hce.chaosnative.com/manifests/2.8.0/hce-cluster-scope.yaml
+kubectl apply -f https://hce.chaosnative.com/manifests/2.8.0/hce-cluster-scope.yaml
 ```
 
 Or
@@ -85,8 +85,8 @@ Or
 
 ```bash
 kubectl create ns litmus
-kubectl apply -f http://hce.chaosnative.com/manifests/2.8.0/hce-crds.yaml
-kubectl apply -f http://hce.chaosnative.com/manifests/2.8.0/hce-namespace.yaml -n litmus
+kubectl apply -f https://hce.chaosnative.com/manifests/2.8.0/hce-crds.yaml
+kubectl apply -f https://hce.chaosnative.com/manifests/2.8.0/hce-namespace.yaml -n litmus
 ```
 
 ### Master version
@@ -94,7 +94,7 @@ kubectl apply -f http://hce.chaosnative.com/manifests/2.8.0/hce-namespace.yaml -
 > Master (Latest) Cluster scope. Install in litmus namespace by default.
 
 ```bash
-kubectl apply -f http://hce.chaosnative.com/manifests/ci/hce-cluster-scope.yaml
+kubectl apply -f https://hce.chaosnative.com/manifests/ci/hce-cluster-scope.yaml
 ```
 
 Or
@@ -103,6 +103,6 @@ Or
 
 ```bash
 kubectl create ns litmus
-kubectl apply -f http://hce.chaosnative.com/manifests/ci/hce-crds.yaml
-kubectl apply -f http://hce.chaosnative.com/manifests/ci/hce-namespace.yaml -n litmus
+kubectl apply -f https://hce.chaosnative.com/manifests/ci/hce-crds.yaml
+kubectl apply -f https://hce.chaosnative.com/manifests/ci/hce-namespace.yaml -n litmus
 ```
