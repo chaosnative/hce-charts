@@ -416,7 +416,7 @@ metadata:
 data:
   AGENT_SCOPE: namespace
   DB_SERVER: "mongodb://mongo-service:27017"
-  VERSION: "master-ci"
+  VERSION: "2.8.0"
 ---
 apiVersion: v1
 kind: ConfigMap

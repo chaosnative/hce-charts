@@ -430,7 +430,7 @@ data:
   DB_SERVER: "mongodb://mongo-service:27017"
   AGENT_SCOPE: cluster
   AGENT_NAMESPACE: litmus
-  VERSION: "master-ci"
+  VERSION: "2.8.0"
   # Configurations if you are using dex for OAuth
   DEX_ENABLED: "false"
   OIDC_ISSUER: "http://<Your Domain>:32000"
