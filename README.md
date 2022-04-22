@@ -106,3 +106,15 @@ kubectl create ns litmus
 kubectl apply -f https://hce.chaosnative.com/manifests/ci/hce-crds.yaml
 kubectl apply -f https://hce.chaosnative.com/manifests/ci/hce-namespace.yaml -n litmus
 ```
+
+---
+
+## To Connect External Agents
+
+External agents can be install via ChaosCTL. Please refer the following resources.
+
+* Installation of ChaosCTL- https://github.com/chaosnative/chaosctl#installation
+
+* Usage of ChaosCTL- https://github.com/chaosnative/chaosctl/blob/main/Usage.md
+
+---
