@@ -144,12 +144,12 @@ Kubernetes: `>=1.16.0-0`
 | portal.graphqlServer.image.pullPolicy | string | `"Always"` |  |
 | portal.graphqlServer.image.repository | string | `"hce-server"` |  |
 | portal.graphqlServer.image.tag | string | `"2.8.0"` |  |
-| portal.graphqlServer.imageEnv.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"litmuschaos/workflow-controller:v3.2.3"` |  |
-| portal.graphqlServer.imageEnv.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"litmuschaos/argoexec:v3.2.3"` |  |
+| portal.graphqlServer.imageEnv.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"chaosnative/workflow-controller:v3.2.3"` |  |
+| portal.graphqlServer.imageEnv.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"chaosnative/argoexec:v3.2.3"` |  |
 | portal.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"chaosnative/hce-event-tracker:2.8.0"` |  |
-| portal.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"litmuschaos/chaos-exporter:2.8.0"` |  |
-| portal.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"litmuschaos/chaos-operator:2.8.0"` |  |
-| portal.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"litmuschaos/chaos-runner:2.8.0"` |  |
+| portal.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"chaosnative/chaos-exporter:2.8.0"` |  |
+| portal.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaosnative/chaos-operator:2.8.0"` |  |
+| portal.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"chaosnative/chaos-runner:2.8.0"` |  |
 | portal.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"chaosnative/hce-subscriber:2.8.0"` |  |
 | portal.graphqlServer.livenessProbe.failureThreshold | int | `5` |  |
 | portal.graphqlServer.livenessProbe.initialDelaySeconds | int | `30` |  |

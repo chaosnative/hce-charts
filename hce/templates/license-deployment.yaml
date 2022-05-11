@@ -23,7 +23,7 @@ spec:
       {{- end }}
       initContainers:
         - name: wait-for-mongodb
-          image: litmuschaos/{{ .Values.portal.waitForMongodb.image.repository }}:{{ .Values.portal.waitForMongodb.image.tag }}
+          image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.waitForMongodb.image.repository }}:{{ .Values.portal.waitForMongodb.image.tag }}
           imagePullPolicy: {{ .Values.portal.waitForMongodb.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
           args:
