@@ -424,6 +424,10 @@ metadata:
   name: litmusportal-frontend-nginx-configuration
 data:
   default.conf: |
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        '' close;
+    }
     server {
         listen       8080;
         server_name  localhost;
@@ -431,6 +435,7 @@ data:
         #access_log  /var/log/nginx/host.access.log  main;
 
         location / {
+            proxy_http_version 1.1;
             root   /usr/share/nginx/html;
             index  index.html index.htm;
             try_files $uri /index.html;
@@ -453,6 +458,7 @@ data:
         #}
 
         location /auth/ {
+            proxy_http_version 1.1;
             proxy_set_header   Host                 $host;
             proxy_set_header   X-Real-IP            $remote_addr;
             proxy_set_header   X-Forwarded-For      $proxy_add_x_forwarded_for;
@@ -461,6 +467,7 @@ data:
         }
 
         location /api/ {
+            proxy_http_version 1.1;
             proxy_set_header   Host                 $host;
             proxy_set_header   X-Real-IP            $remote_addr;
             proxy_set_header   X-Forwarded-For      $proxy_add_x_forwarded_for;
@@ -469,6 +476,7 @@ data:
         }
 
         location /license/ {
+            proxy_http_version 1.1;
             proxy_set_header   Host                 $host;
             proxy_set_header   X-Real-IP            $remote_addr;
             proxy_set_header   X-Forwarded-For      $proxy_add_x_forwarded_for;
@@ -477,8 +485,9 @@ data:
         }
 
         location /ws/ {
-            proxy_set_header   Upgrade              $http_upgrade;
-            proxy_set_header   Connection           "Upgrade";
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
             proxy_set_header   Host                 $host;
             proxy_set_header   X-Real-IP            $remote_addr;
             proxy_set_header   X-Forwarded-For      $proxy_add_x_forwarded_for;
