@@ -10,7 +10,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ .Values.ingress.name }}
-  namespace: { { .Release.Namespace } }
+  namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/component: {{ include "hce.name" . }}-frontend
     {{- include "hce.labels" . | nindent 4 }}
