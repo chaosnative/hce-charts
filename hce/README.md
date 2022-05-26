@@ -1,6 +1,6 @@
 # hce
 
-![Version: 2.8.1](https://img.shields.io/badge/Version-2.8.1-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0-informational?style=flat-square)
+![Version: 2.8.2](https://img.shields.io/badge/Version-2.8.2-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0-informational?style=flat-square)
 
 A Helm chart to install Harness Chaos Enterprise
 
@@ -33,7 +33,7 @@ Kubernetes: `>=1.16.0-0`
 | adminConfig.JWTSecret | string | `"litmus-portal@123"` |  |
 | adminConfig.VERSION | string | `"2.8.0"` |  |
 | customLabels | object | `{}` | Additional labels |
-| image.imagePullSecrets[0].name | string | `"regcred"` |  |
+| image.imagePullSecrets | list | `[]` |  |
 | image.imageRegistryName | string | `"chaosnative"` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
@@ -133,6 +133,7 @@ Kubernetes: `>=1.16.0-0`
 | portal.frontend.virtualService.enabled | bool | `false` |  |
 | portal.frontend.virtualService.gateways | list | `[]` |  |
 | portal.frontend.virtualService.hosts | list | `[]` |  |
+| portal.frontend.virtualService.pathPrefixEnabled | bool | `false` |  |
 | portal.graphqlServer.affinity | object | `{}` |  |
 | portal.graphqlServer.customLabels | object | `{}` |  |
 | portal.graphqlServer.genericEnv.AGENT_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
@@ -207,8 +208,8 @@ Kubernetes: `>=1.16.0-0`
 | portalScope | string | `"cluster"` |  |
 | upgradeAgent.affinity | object | `{}` |  |
 | upgradeAgent.controlPlane.image.pullPolicy | string | `"Always"` |  |
-| upgradeAgent.controlPlane.image.repository | string | `"upgrade-agent-cp"` |  |
-| upgradeAgent.controlPlane.image.tag | string | `"ci"` |  |
+| upgradeAgent.controlPlane.image.repository | string | `"hce-upgrade-agent-cp"` |  |
+| upgradeAgent.controlPlane.image.tag | string | `"2.8.0"` |  |
 | upgradeAgent.nodeSelector | object | `{}` |  |
 | upgradeAgent.tolerations | list | `[]` |  |
 
