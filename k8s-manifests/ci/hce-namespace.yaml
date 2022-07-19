@@ -408,6 +408,7 @@ stringData:
   JWT_SECRET: "litmus-portal@123"
   DB_USER: "admin"
   DB_PASSWORD: "1234"
+  ENTERPRISE_HUB_TOKEN: "Rqg2TaMf+KeCROdC4xQAjD6dU3WZS//utsDqvuc0U6tpjy7trnj/pQ=="
 ---
 apiVersion: v1
 kind: ConfigMap
