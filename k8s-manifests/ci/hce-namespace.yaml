@@ -740,6 +740,8 @@ spec:
               value: "5000000"
             - name: WORKFLOW_HELPER_IMAGE_VERSION
               value: "2.8.0"
+            - name: ENTERPRISE_HUB_BRANCH_NAME
+              value: "main"
           ports:
             - containerPort: 8080
             - containerPort: 8000
