@@ -734,6 +734,8 @@ spec:
                   fieldPath: metadata.namespace
             - name: CHAOS_CENTER_SCOPE
               value: "cluster"
+            - name: IMAGE_PULL_SECRET
+              value: "regcred"
             - name: SUBSCRIBER_IMAGE
               value: "chaosnative/hce-subscriber:master-ci"
             - name: EVENT_TRACKER_IMAGE
