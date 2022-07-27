@@ -655,7 +655,7 @@ metadata:
   name: litmusportal-frontend-service
   namespace: litmus
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: http
       port: 9091
@@ -734,6 +734,8 @@ spec:
                   fieldPath: metadata.namespace
             - name: CHAOS_CENTER_SCOPE
               value: "cluster"
+            - name: IMAGE_PULL_SECRET
+              value: "regcred"
             - name: SUBSCRIBER_IMAGE
               value: "chaosnative/hce-subscriber:master-ci"
             - name: EVENT_TRACKER_IMAGE
@@ -797,7 +799,7 @@ metadata:
   name: litmusportal-server-service
   namespace: litmus
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: graphql-server
       port: 9002
