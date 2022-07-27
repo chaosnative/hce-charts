@@ -628,7 +628,7 @@ kind: Service
 metadata:
   name: litmusportal-frontend-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: http
       port: 9091
@@ -762,7 +762,7 @@ kind: Service
 metadata:
   name: litmusportal-server-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: graphql-server
       port: 9002
