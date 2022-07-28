@@ -389,6 +389,37 @@ subjects:
   - kind: ServiceAccount
     name: litmus-server-account
     namespace: litmus
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: license-server-cluster-role
+rules:
+  # For fetching namespaceID of current namespace
+  - apiGroups: [""]
+    resources: [namespaces]
+    verbs: [get]
+  # For fetching DB secrets & access details
+  - apiGroups: [""]
+    resources: [configmaps, secrets]
+    verbs: [get]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: license-server-cluster-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: license-server-cluster-role
+subjects:
+  - kind: ServiceAccount
+    name: license-server-account
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: license-server-account
 ## Control plane manifests
 ---
 apiVersion: v1
@@ -585,7 +616,7 @@ spec:
               memory: "512Mi"
               cpu: "250m"
               ephemeral-storage: "1Gi"
-      serviceAccountName: litmus-server-account
+      serviceAccountName: license-server-account
 ---
 apiVersion: v1
 kind: Service

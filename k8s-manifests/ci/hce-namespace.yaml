@@ -386,6 +386,37 @@ subjects:
   - kind: ServiceAccount
     name: litmus-server-account
 ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: license-server-role
+rules:
+  # For fetching namespaceID of current namespace
+  - apiGroups: [""]
+    resources: [namespaces]
+    verbs: [get]
+  # For fetching DB secrets & access details
+  - apiGroups: [""]
+    resources: [configmaps, secrets]
+    verbs: [get]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: license-server-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: license-server-role
+subjects:
+  - kind: ServiceAccount
+    name: license-server-account
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: license-server-account
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -561,7 +592,7 @@ spec:
               memory: "512Mi"
               cpu: "250m"
               ephemeral-storage: "1Gi"
-      serviceAccountName: litmus-server-account
+      serviceAccountName: license-server-account
 ---
 apiVersion: v1
 kind: Service
@@ -710,10 +741,14 @@ spec:
               value: ""
             - name: CHAOS_CENTER_SCOPE
               value: "namespace"
+            - name: IMAGE_PULL_SECRET
+              value: "regcred"
             - name: AGENT_DEPLOYMENTS
               value: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
             - name: CHAOS_CENTER_UI_ENDPOINT
-              value: "http://litmusportal-frontend-service:9091"
+              value: ""
+            - name: SERVER_SERVICE_NAME
+              value: "litmusportal-server-service"
             - name: SUBSCRIBER_IMAGE
               value: "chaosnative/hce-subscriber:master-ci"
             - name: EVENT_TRACKER_IMAGE
