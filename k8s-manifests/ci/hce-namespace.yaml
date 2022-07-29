@@ -416,6 +416,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: license-server-account
+  namespace: litmus
 ---
 apiVersion: v1
 kind: ServiceAccount
