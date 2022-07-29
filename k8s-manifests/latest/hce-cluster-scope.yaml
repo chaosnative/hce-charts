@@ -415,11 +415,13 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: license-server-account
+    namespace: litmus
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: license-server-account
+  namespace: litmus
 ## Control plane manifests
 ---
 apiVersion: v1
