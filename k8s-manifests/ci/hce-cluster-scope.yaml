@@ -464,7 +464,7 @@ data:
   DB_SERVER: "mongodb://mongo-service:27017"
   AGENT_SCOPE: cluster
   AGENT_NAMESPACE: litmus
-  VERSION: "2.11.0-RC1"
+  VERSION: "master-ci"
   # Configurations if you are using dex for OAuth
   DEX_ENABLED: "false"
   OIDC_ISSUER: "http://<Your Domain>:32000"
@@ -590,7 +590,7 @@ spec:
               ephemeral-storage: "200Mi"
       containers:
         - name: license-server
-          image: chaosnative/hce-license-module:2.11.0-RC1
+          image: chaosnative/hce-license-module:master-ci
           envFrom:
             - configMapRef:
                 name: litmus-portal-admin-config
@@ -654,7 +654,7 @@ spec:
         - name: regcred
       containers:
         - name: litmusportal-frontend
-          image: chaosnative/hce-frontend:2.11.0-RC1
+          image: chaosnative/hce-frontend:master-ci
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -739,7 +739,7 @@ spec:
           emptyDir: {}
       containers:
         - name: graphql-server
-          image: chaosnative/hce-server:2.11.0-RC1
+          image: chaosnative/hce-server:master-ci
           volumeMounts:
             - mountPath: /tmp/
               name: gitops-storage
@@ -770,9 +770,9 @@ spec:
             - name: IMAGE_PULL_SECRET
               value: "regcred"
             - name: SUBSCRIBER_IMAGE
-              value: "chaosnative/hce-subscriber:2.11.0-RC1"
+              value: "chaosnative/hce-subscriber:master-ci"
             - name: EVENT_TRACKER_IMAGE
-              value: "chaosnative/hce-event-tracker:2.11.0-RC1"
+              value: "chaosnative/hce-event-tracker:master-ci"
             - name: ARGO_WORKFLOW_CONTROLLER_IMAGE
               value: "chaosnative/workflow-controller:v3.2.3"
             - name: ARGO_WORKFLOW_EXECUTOR_IMAGE
@@ -882,7 +882,7 @@ spec:
               ephemeral-storage: "200Mi"
       containers:
         - name: auth-server
-          image: chaosnative/hce-auth-server:2.11.0-RC1
+          image: chaosnative/hce-auth-server:master-ci
           securityContext:
             runAsUser: 2000
             allowPrivilegeEscalation: false
