@@ -265,7 +265,7 @@ portal:
       AGENT_DEPLOYMENTS: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
       REMOTE_HUB_MAX_SIZE: "5000000"
       WORKFLOW_HELPER_IMAGE_VERSION: "2.11.0"
-      ENTERPRISE_HUB_BRANCH_NAME: "v2.11.0"
+      ENTERPRISE_HUB_BRANCH_NAME: "v2.11.x"
       ENTERPRISE_HUB_TOKEN: "Rqg2TaMf+KeCROdC4xQAjD6dU3WZS//utsDqvuc0U6tpjy7trnj/pQ=="
     resources:
       # We usually recommend not to specify default resources and to leave this as a conscious
