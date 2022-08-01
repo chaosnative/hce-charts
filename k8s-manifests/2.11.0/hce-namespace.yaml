@@ -631,6 +631,10 @@ spec:
         - name: litmusportal-frontend
           image: chaosnative/hce-frontend:2.11.0
           imagePullPolicy: Always
+          securityContext:
+            runAsUser: 2000
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
           ports:
             - containerPort: 8080
           env:
@@ -779,7 +783,7 @@ spec:
             - name: WORKFLOW_HELPER_IMAGE_VERSION
               value: "2.11.0"
             - name: ENTERPRISE_HUB_BRANCH_NAME
-              value: "main"
+              value: "v2.11.x"
           ports:
             - containerPort: 8080
             - containerPort: 8000
@@ -924,6 +928,10 @@ spec:
           ports:
             - containerPort: 27017
           imagePullPolicy: Always
+          securityContext:
+            #runAsUser: 2000
+            allowPrivilegeEscalation: false
+            #runAsNonRoot: true
           volumeMounts:
             - name: mongo-persistent-storage
               mountPath: /data/db
