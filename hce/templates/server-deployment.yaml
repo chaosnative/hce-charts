@@ -84,7 +84,7 @@ spec:
               value: {{ .Values.portalScope }}
             {{- with (index .Values.image.imagePullSecrets) }}
             - name: IMAGE_PULL_SECRET
-              value: {{ .imagePullSecrets }}
+              value: {{ . }}
             {{- end }}
             - name: SERVER_SERVICE_NAME
               value: {{ include "hce.fullname" . }}-server-service
