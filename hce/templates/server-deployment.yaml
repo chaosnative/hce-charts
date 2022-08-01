@@ -82,8 +82,10 @@ spec:
                   fieldPath: metadata.namespace
             - name: CHAOS_CENTER_SCOPE
               value: {{ .Values.portalScope }}
+            {{- with (index .Values.image.imagePullSecrets) }}
             - name: IMAGE_PULL_SECRET
-              value: {{ .Values.image.imagePullSecrets }}
+              value: {{ .imagePullSecrets }}
+            {{- end }}
             - name: SERVER_SERVICE_NAME
               value: {{ include "hce.fullname" . }}-server-service
             {{- if eq .Values.portalScope "namespace" }}
