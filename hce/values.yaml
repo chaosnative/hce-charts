@@ -23,7 +23,7 @@ image:
   imageRegistryName: chaosnative
   # Optional pod imagePullSecrets
   imagePullSecrets: 
-    - regcred
+  - regcred
 
 ingress:
   enabled: false
