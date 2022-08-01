@@ -94,6 +94,9 @@ rules:
   - apiGroups: [apiextensions.k8s.io]
     resources: [customresourcedefinitions]
     verbs: [list, get]
+  - apiGroups: [litmuschaos.io]
+    resources: [chaosengines/finalizers]
+    verbs: [update]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -656,6 +659,10 @@ spec:
         - name: litmusportal-frontend
           image: chaosnative/hce-frontend:master-ci
           imagePullPolicy: Always
+          securityContext:
+            runAsUser: 2000
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
           ports:
             - containerPort: 8080
           env:
@@ -959,6 +966,10 @@ spec:
           ports:
             - containerPort: 27017
           imagePullPolicy: Always
+          securityContext:
+            #runAsUser: 2000
+            allowPrivilegeEscalation: false
+            #runAsNonRoot: true
           volumeMounts:
             - name: mongo-persistent-storage
               mountPath: /data/db
