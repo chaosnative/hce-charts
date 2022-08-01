@@ -33,7 +33,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       volumes:
-        {{- toYaml .Values.portal.server.graphqlServer.volumes | default "" | nindent 8 }}
+        {{- toYaml .Values.portal.graphqlServer.volumes | default "" | nindent 8 }}
       initContainers:
         - name: wait-for-mongodb
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.waitForMongodb.image.repository }}:{{ .Values.portal.waitForMongodb.image.tag }}
@@ -50,7 +50,7 @@ spec:
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.graphqlServer.image.repository }}:{{ .Values.portal.graphqlServer.image.tag }}
           imagePullPolicy: {{ .Values.portal.graphqlServer.image.pullPolicy }}
           volumeMounts:
-            {{- toYaml .Values.portal.server.graphqlServer.volumeMounts | default "" | nindent 12 }}
+            {{- toYaml .Values.portal.graphqlServer.volumeMounts | default "" | nindent 12 }}
           ports:
             - containerPort: {{ .Values.portal.graphqlServer.serverContainerPort }}
               name: gql-server
@@ -59,7 +59,7 @@ spec:
           resources:
             {{- toYaml .Values.portal.graphqlServer.resources | nindent 12 }}
           securityContext:
-            {{- toYaml .Values.portal.server.graphqlServer.securityContext | nindent 12 }}
+            {{- toYaml .Values.portal.graphqlServer.securityContext | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /
