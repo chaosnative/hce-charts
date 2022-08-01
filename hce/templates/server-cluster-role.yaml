@@ -74,6 +74,9 @@ rules:
   - apiGroups: [apiextensions.k8s.io]
     resources: [customresourcedefinitions]
     verbs: [list, get]
+  - apiGroups: [litmuschaos.io]
+    resources: [chaosengines/finalizers]
+    verbs: [update]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -287,4 +290,18 @@ rules:
   - apiGroups: [rbac.authorization.k8s.io]
     resources: [rolebindings, roles, clusterrolebindings, clusterroles]
     verbs: [create]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: license-server-cluster-role
+rules:
+  # For fetching namespaceID of current namespace
+  - apiGroups: [""]
+    resources: [namespaces]
+    verbs: [get]
+  # For fetching DB secrets & access details
+  - apiGroups: [""]
+    resources: [configmaps, secrets]
+    verbs: [get]
 {{ end }}

@@ -40,6 +40,8 @@ spec:
             - containerPort: {{ .Values.mongo.containerPort }}
               name: mongodb
           imagePullPolicy: {{ .Values.mongo.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.mongo.securityContext | nindent 12 }}
           {{- if .Values.mongo.resources }}
           resources:
             {{- toYaml .Values.mongo.resources | nindent 12 }}
