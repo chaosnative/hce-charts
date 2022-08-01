@@ -22,7 +22,8 @@ adminConfig:
 image:
   imageRegistryName: chaosnative
   # Optional pod imagePullSecrets
-  imagePullSecrets: []
+  imagePullSecrets:
+    - name: regcred
 
 ingress:
   enabled: false
