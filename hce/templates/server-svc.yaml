@@ -7,11 +7,7 @@ metadata:
     app.kubernetes.io/component: {{ include "hce.name" . }}-server
     {{- include "hce.labels" . | nindent 4 }}
 spec:
-  {{- if .Values.ingress.enabled }}
-  type: ClusterIP
-  {{- else }}
   type: {{ .Values.portal.graphqlServer.service.type }}
-  {{- end }}
   ports:
     - name: graphql-server
       port: {{ .Values.portal.graphqlServer.service.graphqlServer.port }}

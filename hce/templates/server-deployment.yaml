@@ -32,6 +32,8 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+      volumes:
+        {{- toYaml .Values.portal.server.graphqlServer.volumes | default "" | nindent 8 }}
       initContainers:
         - name: wait-for-mongodb
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.waitForMongodb.image.repository }}:{{ .Values.portal.waitForMongodb.image.tag }}
@@ -47,6 +49,8 @@ spec:
         - name: graphql-server
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.graphqlServer.image.repository }}:{{ .Values.portal.graphqlServer.image.tag }}
           imagePullPolicy: {{ .Values.portal.graphqlServer.image.pullPolicy }}
+          volumeMounts:
+            {{- toYaml .Values.portal.server.graphqlServer.volumeMounts | default "" | nindent 12 }}
           ports:
             - containerPort: {{ .Values.portal.graphqlServer.serverContainerPort }}
               name: gql-server
@@ -54,6 +58,8 @@ spec:
               name: gql-rpc-server
           resources:
             {{- toYaml .Values.portal.graphqlServer.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.portal.server.graphqlServer.securityContext | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /
@@ -74,8 +80,10 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: PORTAL_SCOPE
+            - name: CHAOS_CENTER_SCOPE
               value: {{ .Values.portalScope }}
+            - name: IMAGE_PULL_SECRET
+              value: {{ .Values.image.imagePullSecrets }}
             - name: SERVER_SERVICE_NAME
               value: {{ include "hce.fullname" . }}-server-service
             {{- if eq .Values.portalScope "namespace" }}

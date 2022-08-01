@@ -6,3 +6,13 @@ metadata:
   labels:
     app.kubernetes.io/component: {{ include "hce.name" . }}-server
     {{- include "hce.labels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.portal.licenseServer.serviceAccountName }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: {{ include "hce.name" . }}-license-server
+    {{- include "hce.labels" . | nindent 4 }}
+---

@@ -14,7 +14,7 @@ adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
-  VERSION: "2.8.0"
+  VERSION: "2.11.0"
   # -- leave empty if uses Mongo DB deployed by this chart
   DB_SERVER: ""
   DB_PORT: "27017"
@@ -49,7 +49,7 @@ upgradeAgent:
   controlPlane:
     image:
       repository: hce-upgrade-agent-cp
-      tag: "2.8.0"
+      tag: "2.11.0"
       pullPolicy: "Always"
   nodeSelector: {}
   tolerations: []
@@ -70,10 +70,14 @@ portal:
     ##       maxUnavailable: 25%
     image:
       repository: hce-frontend
-      tag: 2.8.0
+      tag: 2.11.0
       pullPolicy: "Always"
     containerPort: 8080
     customLabels: {}
+    securityContext:
+      runAsUser: 2000
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
     # my.company.com/tier: "frontend"
 
     resources: 
@@ -101,7 +105,7 @@ portal:
       successThreshold: 1
       timeoutSeconds: 1
     service:
-      type: NodePort
+      type: LoadBalancer
       port: 9091
       targetPort: 8080
     virtualService:
@@ -130,7 +134,7 @@ portal:
 
     image:
       repository: hce-auth-server
-      tag: 2.8.0
+      tag: 2.11.0
       pullPolicy: "Always"
     serverContainerPort: 3000
     rpcContainerPort: 3030
@@ -138,6 +142,11 @@ portal:
       ADMIN_USERNAME: "admin"
       ADMIN_PASSWORD: "litmus"
       STRICT_PASSWORD_POLICY: "false"
+    securityContext:
+      runAsUser: 2000
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
+      readOnlyRootFilesystem: true
 
     resources:
       # We usually recommend not to specify default resources and to leave this as a conscious
@@ -168,11 +177,16 @@ portal:
   licenseServer:
     image:
       repository: hce-license-module
-      tag: 2.8.0
+      tag: 2.11.0
       pullPolicy: "Always"
     containerPort: 8080
 
-    serviceAccountName: litmus-server-account
+    serviceAccountName: license-server-account
+    securityContext:
+      runAsUser: 2000
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
+      readOnlyRootFilesystem: true
     resources:
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
@@ -197,6 +211,21 @@ portal:
     affinity: {}
 
   graphqlServer:
+    volumes:
+      - name: gitops-storage
+        emptyDir: {}
+      - name: hub-storage
+        emptyDir: {}
+    volumeMounts:
+      - mountPath: /tmp/
+        name: gitops-storage
+      - mountPath: /tmp/version
+        name: hub-storage
+    securityContext:
+      runAsUser: 2000
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
+      readOnlyRootFilesystem: true
     replicas: 1
     updateStrategy: {}
     ## Strategy for deployment updates.
@@ -213,8 +242,9 @@ portal:
 
     image:
       repository: hce-server
-      tag: 2.8.0
+      tag: 2.11.0
       pullPolicy: "Always"
+
 
     serverContainerPort: 8080
     rpcContainerPort: 8000
@@ -222,18 +252,21 @@ portal:
     imageEnv:
       ARGO_WORKFLOW_CONTROLLER_IMAGE: "chaosnative/workflow-controller:v3.2.3"
       ARGO_WORKFLOW_EXECUTOR_IMAGE: "chaosnative/argoexec:v3.2.3"
-      LITMUS_CHAOS_OPERATOR_IMAGE: "chaosnative/chaos-operator:2.8.0"
-      LITMUS_CHAOS_RUNNER_IMAGE: "chaosnative/chaos-runner:2.8.0"
-      LITMUS_CHAOS_EXPORTER_IMAGE: "chaosnative/chaos-exporter:2.8.0"
-      SUBSCRIBER_IMAGE: "chaosnative/hce-subscriber:2.8.0"
-      EVENT_TRACKER_IMAGE: "chaosnative/hce-event-tracker:2.8.0"
+      LITMUS_CHAOS_OPERATOR_IMAGE: "chaosnative/chaos-operator:2.11.0"
+      LITMUS_CHAOS_RUNNER_IMAGE: "chaosnative/chaos-runner:2.11.0"
+      LITMUS_CHAOS_EXPORTER_IMAGE: "chaosnative/chaos-exporter:2.11.0"
+      SUBSCRIBER_IMAGE: "chaosnative/hce-subscriber:2.11.0"
+      EVENT_TRACKER_IMAGE: "chaosnative/hce-event-tracker:2.11.0"
     genericEnv:
+      CHAOS_CENTER_UI_ENDPOINT: ""
       SELF_CLUSTER: "true"
       CONTAINER_RUNTIME_EXECUTOR: "k8sapi"
-      HUB_BRANCH_NAME: "v2.8.x"
+      HUB_BRANCH_NAME: "v2.11.x"
       AGENT_DEPLOYMENTS: "[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"
       REMOTE_HUB_MAX_SIZE: "5000000"
-      LITMUS_CORE_VERSION: "2.8.0"
+      WORKFLOW_HELPER_IMAGE_VERSION: "2.11.0"
+      ENTERPRISE_HUB_BRANCH_NAME: "v2.11.0"
+      ENTERPRISE_HUB_TOKEN: "Rqg2TaMf+KeCROdC4xQAjD6dU3WZS//utsDqvuc0U6tpjy7trnj/pQ=="
     resources:
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
@@ -259,7 +292,7 @@ portal:
       successThreshold: 1
       timeoutSeconds: 1
     service:
-      type: NodePort
+      type: LoadBalancer
       graphqlServer:
         port: 9002
         targetPort: 8080
@@ -273,7 +306,7 @@ portal:
   waitForMongodb:
     image:
       repository: curl
-      tag: 2.8.0
+      tag: 2.11.0
       pullPolicy: "Always"
     resources:
       # We usually recommend not to specify default resources and to leave this as a conscious
@@ -298,6 +331,10 @@ mongo:
     tag: 4.2.8
     pullPolicy: "Always"
   containerPort: 27017
+  securityContext:
+    #runAsUser: 2000
+    allowPrivilegeEscalation: false
+    #runAsNonRoot: true
   resources: 
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little

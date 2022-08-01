@@ -51,6 +51,8 @@ spec:
               name: auth-server
             - containerPort: {{ .Values.portal.authServer.rpcContainerPort }}
               name: auth-rpc-server
+          securityContext:
+            {{- toYaml .Values.portal.authServer.securityContext | nindent 12 }}
           resources:
             {{- toYaml .Values.portal.authServer.resources | nindent 12 }}
           envFrom:

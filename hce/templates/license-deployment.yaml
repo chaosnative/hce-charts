@@ -48,6 +48,8 @@ spec:
           ports:
             - containerPort: {{ .Values.portal.licenseServer.containerPort }}
           imagePullPolicy: Always
+          securityContext:
+            {{- toYaml .Values.portal.licenseServer.securityContext | nindent 12 }}
           resources:
             {{- toYaml .Values.portal.licenseServer.resources | nindent 12 }}
       serviceAccountName: {{ .Values.portal.licenseServer.serviceAccountName }}

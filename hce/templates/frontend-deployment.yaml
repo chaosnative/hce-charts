@@ -39,6 +39,8 @@ spec:
         - name: litmusportal-frontend
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.frontend.image.repository }}:{{ .Values.portal.frontend.image.tag }}
           imagePullPolicy: {{ .Values.portal.frontend.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.portal.frontend.securityContext | nindent 12 }}
           resources:
             {{- toYaml .Values.portal.frontend.resources | nindent 12 }}
           livenessProbe:
