@@ -1,6 +1,6 @@
 # hce
 
-![Version: 2.11.0](https://img.shields.io/badge/Version-2.11.0-informational?style=flat-square) ![AppVersion: 2.11.0](https://img.shields.io/badge/AppVersion-2.11.0-informational?style=flat-square)
+![Version: 2.11.1](https://img.shields.io/badge/Version-2.11.1-informational?style=flat-square) ![AppVersion: 2.11.0](https://img.shields.io/badge/AppVersion-2.11.0-informational?style=flat-square)
 
 A Helm chart to install Harness Chaos Enterprise
 
@@ -31,7 +31,7 @@ Kubernetes: `>=1.16.0-0`
 | adminConfig.DB_PORT | string | `"27017"` |  |
 | adminConfig.DB_SERVER | string | `""` | leave empty if uses Mongo DB deployed by this chart |
 | adminConfig.JWTSecret | string | `"litmus-portal@123"` |  |
-| adminConfig.VERSION | string | `"2.11.0"` |  |
+| adminConfig.VERSION | string | `"2.11.1"` |  |
 | customLabels | object | `{}` | Additional labels |
 | image.imagePullSecrets | list | `[]` |  |
 | image.imageRegistryName | string | `"chaosnative"` |  |
@@ -84,7 +84,7 @@ Kubernetes: `>=1.16.0-0`
 | portal.authServer.env.STRICT_PASSWORD_POLICY | string | `"false"` |  |
 | portal.authServer.image.pullPolicy | string | `"Always"` |  |
 | portal.authServer.image.repository | string | `"hce-auth-server"` |  |
-| portal.authServer.image.tag | string | `"2.11.0"` |  |
+| portal.authServer.image.tag | string | `"2.11.1"` |  |
 | portal.authServer.nodeSelector | object | `{}` |  |
 | portal.authServer.replicas | int | `1` |  |
 | portal.authServer.resources.limits.cpu | string | `"250m"` |  |
@@ -112,7 +112,7 @@ Kubernetes: `>=1.16.0-0`
 | portal.frontend.customLabels | object | `{}` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
 | portal.frontend.image.repository | string | `"hce-frontend"` |  |
-| portal.frontend.image.tag | string | `"2.11.0"` |  |
+| portal.frontend.image.tag | string | `"2.11.1"` |  |
 | portal.frontend.livenessProbe.failureThreshold | int | `5` |  |
 | portal.frontend.livenessProbe.initialDelaySeconds | int | `30` |  |
 | portal.frontend.livenessProbe.periodSeconds | int | `10` |  |
@@ -147,7 +147,7 @@ Kubernetes: `>=1.16.0-0`
 | portal.graphqlServer.genericEnv.AGENT_DEPLOYMENTS | string | `"[\"app=chaos-exporter\", \"name=chaos-operator\", \"app=event-tracker\", \"app=workflow-controller\"]"` |  |
 | portal.graphqlServer.genericEnv.CHAOS_CENTER_UI_ENDPOINT | string | `""` |  |
 | portal.graphqlServer.genericEnv.CONTAINER_RUNTIME_EXECUTOR | string | `"k8sapi"` |  |
-| portal.graphqlServer.genericEnv.ENTERPRISE_HUB_BRANCH_NAME | string | `"v2.11.0"` |  |
+| portal.graphqlServer.genericEnv.ENTERPRISE_HUB_BRANCH_NAME | string | `"v2.11.x"` |  |
 | portal.graphqlServer.genericEnv.ENTERPRISE_HUB_TOKEN | string | `"Rqg2TaMf+KeCROdC4xQAjD6dU3WZS//utsDqvuc0U6tpjy7trnj/pQ=="` |  |
 | portal.graphqlServer.genericEnv.HUB_BRANCH_NAME | string | `"v2.11.x"` |  |
 | portal.graphqlServer.genericEnv.REMOTE_HUB_MAX_SIZE | string | `"5000000"` |  |
@@ -155,14 +155,14 @@ Kubernetes: `>=1.16.0-0`
 | portal.graphqlServer.genericEnv.WORKFLOW_HELPER_IMAGE_VERSION | string | `"2.11.0"` |  |
 | portal.graphqlServer.image.pullPolicy | string | `"Always"` |  |
 | portal.graphqlServer.image.repository | string | `"hce-server"` |  |
-| portal.graphqlServer.image.tag | string | `"2.11.0"` |  |
+| portal.graphqlServer.image.tag | string | `"2.11.1"` |  |
 | portal.graphqlServer.imageEnv.ARGO_WORKFLOW_CONTROLLER_IMAGE | string | `"chaosnative/workflow-controller:v3.2.3"` |  |
 | portal.graphqlServer.imageEnv.ARGO_WORKFLOW_EXECUTOR_IMAGE | string | `"chaosnative/argoexec:v3.2.3"` |  |
-| portal.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"chaosnative/hce-event-tracker:2.11.0"` |  |
+| portal.graphqlServer.imageEnv.EVENT_TRACKER_IMAGE | string | `"chaosnative/hce-event-tracker:2.11.1"` |  |
 | portal.graphqlServer.imageEnv.LITMUS_CHAOS_EXPORTER_IMAGE | string | `"chaosnative/chaos-exporter:2.11.0"` |  |
 | portal.graphqlServer.imageEnv.LITMUS_CHAOS_OPERATOR_IMAGE | string | `"chaosnative/chaos-operator:2.11.0"` |  |
 | portal.graphqlServer.imageEnv.LITMUS_CHAOS_RUNNER_IMAGE | string | `"chaosnative/chaos-runner:2.11.0"` |  |
-| portal.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"chaosnative/hce-subscriber:2.11.0"` |  |
+| portal.graphqlServer.imageEnv.SUBSCRIBER_IMAGE | string | `"chaosnative/hce-subscriber:2.11.1"` |  |
 | portal.graphqlServer.livenessProbe.failureThreshold | int | `5` |  |
 | portal.graphqlServer.livenessProbe.initialDelaySeconds | int | `30` |  |
 | portal.graphqlServer.livenessProbe.periodSeconds | int | `10` |  |
@@ -206,7 +206,7 @@ Kubernetes: `>=1.16.0-0`
 | portal.licenseServer.containerPort | int | `8080` |  |
 | portal.licenseServer.image.pullPolicy | string | `"Always"` |  |
 | portal.licenseServer.image.repository | string | `"hce-license-module"` |  |
-| portal.licenseServer.image.tag | string | `"2.11.0"` |  |
+| portal.licenseServer.image.tag | string | `"2.11.1"` |  |
 | portal.licenseServer.nodeSelector | object | `{}` |  |
 | portal.licenseServer.resources.limits.cpu | string | `"250m"` |  |
 | portal.licenseServer.resources.limits.ephemeral-storage | string | `"1Gi"` |  |
@@ -236,7 +236,7 @@ Kubernetes: `>=1.16.0-0`
 | upgradeAgent.affinity | object | `{}` |  |
 | upgradeAgent.controlPlane.image.pullPolicy | string | `"Always"` |  |
 | upgradeAgent.controlPlane.image.repository | string | `"hce-upgrade-agent-cp"` |  |
-| upgradeAgent.controlPlane.image.tag | string | `"2.11.0"` |  |
+| upgradeAgent.controlPlane.image.tag | string | `"2.11.1"` |  |
 | upgradeAgent.nodeSelector | object | `{}` |  |
 | upgradeAgent.tolerations | list | `[]` |  |
 
