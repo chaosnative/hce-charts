@@ -51,6 +51,7 @@ upgradeAgent:
       repository: hce-upgrade-agent-cp
       tag: "2.11.1"
       pullPolicy: "Always"
+    restartPolicy: OnFailure
   nodeSelector: {}
   tolerations: []
   affinity: {}
