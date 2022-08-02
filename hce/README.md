@@ -237,6 +237,7 @@ Kubernetes: `>=1.16.0-0`
 | upgradeAgent.controlPlane.image.pullPolicy | string | `"Always"` |  |
 | upgradeAgent.controlPlane.image.repository | string | `"hce-upgrade-agent-cp"` |  |
 | upgradeAgent.controlPlane.image.tag | string | `"2.11.1"` |  |
+| upgradeAgent.controlPlane.restartPolicy | string | `"OnFailure"` |  |
 | upgradeAgent.nodeSelector | object | `{}` |  |
 | upgradeAgent.tolerations | list | `[]` |  |
 
