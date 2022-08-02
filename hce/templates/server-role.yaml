@@ -320,6 +320,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: license-server-role
+  labels:
+    app.kubernetes.io/component: role-for-{{ include "hce.name" . }}-license-server
+    {{- include "hce.labels" . | nindent 4 }}
 rules:
   # For fetching namespaceID of current namespace
   - apiGroups: [""]
