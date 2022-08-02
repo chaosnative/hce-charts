@@ -295,6 +295,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: license-server-cluster-role
+  labels:
+    app.kubernetes.io/component: cr-for-{{ include "hce.name" . }}-license-server
+    {{- include "hce.labels" . | nindent 4 }}
 rules:
   # For fetching namespaceID of current namespace
   - apiGroups: [""]
