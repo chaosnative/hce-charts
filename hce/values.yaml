@@ -14,7 +14,7 @@ adminConfig:
   DBUSER: "admin"
   DBPASSWORD: "1234"
   JWTSecret: "litmus-portal@123"
-  VERSION: "2.11.0"
+  VERSION: "2.11.1"
   # -- leave empty if uses Mongo DB deployed by this chart
   DB_SERVER: ""
   DB_PORT: "27017"
@@ -49,7 +49,7 @@ upgradeAgent:
   controlPlane:
     image:
       repository: hce-upgrade-agent-cp
-      tag: "2.11.0"
+      tag: "2.11.1"
       pullPolicy: "Always"
   nodeSelector: {}
   tolerations: []
@@ -70,7 +70,7 @@ portal:
     ##       maxUnavailable: 25%
     image:
       repository: hce-frontend
-      tag: 2.11.0
+      tag: 2.11.1
       pullPolicy: "Always"
     containerPort: 8080
     customLabels: {}
@@ -134,7 +134,7 @@ portal:
 
     image:
       repository: hce-auth-server
-      tag: 2.11.0
+      tag: 2.11.1
       pullPolicy: "Always"
     serverContainerPort: 3000
     rpcContainerPort: 3030
@@ -177,7 +177,7 @@ portal:
   licenseServer:
     image:
       repository: hce-license-module
-      tag: 2.11.0
+      tag: 2.11.1
       pullPolicy: "Always"
     containerPort: 8080
 
@@ -242,7 +242,7 @@ portal:
 
     image:
       repository: hce-server
-      tag: 2.11.0
+      tag: 2.11.1
       pullPolicy: "Always"
 
 
@@ -255,8 +255,8 @@ portal:
       LITMUS_CHAOS_OPERATOR_IMAGE: "chaosnative/chaos-operator:2.11.0"
       LITMUS_CHAOS_RUNNER_IMAGE: "chaosnative/chaos-runner:2.11.0"
       LITMUS_CHAOS_EXPORTER_IMAGE: "chaosnative/chaos-exporter:2.11.0"
-      SUBSCRIBER_IMAGE: "chaosnative/hce-subscriber:2.11.0"
-      EVENT_TRACKER_IMAGE: "chaosnative/hce-event-tracker:2.11.0"
+      SUBSCRIBER_IMAGE: "chaosnative/hce-subscriber:2.11.1"
+      EVENT_TRACKER_IMAGE: "chaosnative/hce-event-tracker:2.11.1"
     genericEnv:
       CHAOS_CENTER_UI_ENDPOINT: ""
       SELF_CLUSTER: "true"

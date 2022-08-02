@@ -58,7 +58,7 @@ metadata:
     app.kubernetes.io/name: litmus
     # provide unique instance-id if applicable
     # app.kubernetes.io/instance: litmus-abcxzy
-    app.kubernetes.io/version: v2.11.0
+    app.kubernetes.io/version: v2.11.1
     app.kubernetes.io/component: operator-role
     app.kubernetes.io/part-of: litmus
     app.kubernetes.io/managed-by: kubectl
@@ -100,7 +100,7 @@ metadata:
     app.kubernetes.io/name: litmus
     # provide unique instance-id if applicable
     # app.kubernetes.io/instance: litmus-abcxzy
-    app.kubernetes.io/version: v2.11.0
+    app.kubernetes.io/version: v2.11.1
     app.kubernetes.io/component: operator-rolebinding
     app.kubernetes.io/part-of: litmus
     app.kubernetes.io/managed-by: kubectl
@@ -450,7 +450,7 @@ metadata:
 data:
   AGENT_SCOPE: namespace
   DB_SERVER: "mongodb://mongo-service:27017"
-  VERSION: "2.11.0"
+  VERSION: "2.11.1"
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -567,7 +567,7 @@ spec:
               ephemeral-storage: "200Mi"
       containers:
         - name: license-server
-          image: chaosnative/hce-license-module:2.11.0
+          image: chaosnative/hce-license-module:2.11.1
           envFrom:
             - configMapRef:
                 name: litmus-portal-admin-config
@@ -629,7 +629,7 @@ spec:
         - name: regcred
       containers:
         - name: litmusportal-frontend
-          image: chaosnative/hce-frontend:2.11.0
+          image: chaosnative/hce-frontend:2.11.1
           imagePullPolicy: Always
           securityContext:
             runAsUser: 2000
@@ -716,7 +716,7 @@ spec:
           emptyDir: {}
       containers:
         - name: graphql-server
-          image: chaosnative/hce-server:2.11.0
+          image: chaosnative/hce-server:2.11.1
           volumeMounts:
             - mountPath: /tmp/gitops
               name: gitops-storage
@@ -757,9 +757,9 @@ spec:
             - name: SERVER_SERVICE_NAME
               value: "litmusportal-server-service"
             - name: SUBSCRIBER_IMAGE
-              value: "chaosnative/hce-subscriber:2.11.0"
+              value: "chaosnative/hce-subscriber:2.11.1"
             - name: EVENT_TRACKER_IMAGE
-              value: "chaosnative/hce-event-tracker:2.11.0"
+              value: "chaosnative/hce-event-tracker:2.11.1"
             - name: ARGO_WORKFLOW_CONTROLLER_IMAGE
               value: "chaosnative/workflow-controller:v3.2.3"
             - name: ARGO_WORKFLOW_EXECUTOR_IMAGE
@@ -853,7 +853,7 @@ spec:
               ephemeral-storage: "1Gi"
       containers:
         - name: auth-server
-          image: chaosnative/hce-auth-server:2.11.0
+          image: chaosnative/hce-auth-server:2.11.1
           securityContext:
             runAsUser: 2000
             allowPrivilegeEscalation: false
