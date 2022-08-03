@@ -1,0 +1,8 @@
+apiVersion: psmdb.percona.com/v1
+kind: PerconaServerMongoDBBackup
+metadata:
+  name: backup1
+  namespace: litmus
+spec:
+  psmdbCluster: mongo-cluster
+  storageName: s3-us-east
