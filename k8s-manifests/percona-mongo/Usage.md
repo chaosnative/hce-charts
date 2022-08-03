@@ -25,7 +25,9 @@ To provide high availability the Operator uses node affinity to run MongoDB inst
 ## Steps to Install percona MongoDB for HCE:
 
 - Install the CRDs for Percona Server for MongoDB. The Custom Resource Definition extends the standard set of resources which Kubernetes “knows” about with the new items. In our case these items are the core of the operator.
-`Kubectl apply -f https://hce.chaosnative.com/manifests/latest/percona-mongo/percona-mongodb-crd.yaml`
+```bash
+Kubectl apply -f https://hce.chaosnative.com/manifests/latest/percona-mongo/percona-mongodb-crd.yaml
+```
 
 Output:
 ```bash
@@ -33,8 +35,8 @@ customresourcedefinition.apiextensions.k8s.io/perconaservermongodbs.psmdb.percon
 customresourcedefinition.apiextensions.k8s.io/perconaservermongodbbackups.psmdb.percona.com created
 customresourcedefinition.apiextensions.k8s.io/perconaservermongodbrestores.psmdb.percona.com created
 ```
--  Setting up the RBAC  for Percona server for MongoDB
-*Note:* Setting RBAC requires your user to have cluster-admin role privileges
+-  Setting up the RBAC  for Percona server for MongoDB\
+** Note: ** Setting RBAC requires your user to have cluster-admin role privileges
 ```bash
  Kubectl apply -f https://hce.chaosnative.com/manifests/latest/percona-mongo/percona-mongodb-rbac.yaml
 ```
@@ -141,7 +143,7 @@ mongo-cluster-rs1-0                                1/1     Running   0          
 mongo-cluster-rs1-1                                1/1     Running   0          8m18s
 percona-server-mongodb-operator-57cdd66f6c-9rzg5   1/1     Running   0          10m
 ```
-* Note: *  For HA and Faster I/O Operation you can have 2 shards with atleast 3 replicasets and 3 config server.
+** Note: **  For HA and Faster I/O Operation you can have 2 shards with atleast 3 replicasets and 3 config server.
 
 ### Backup:
 Percona Backup for MongoDB is a distributed, low-impact solution for achieving consistent backups of MongoDB sharded clusters and replica sets
@@ -171,7 +173,7 @@ Here You can find the example  which uses  Amazon S3 for Backup
       storageName: s3-us-east
 ```
 
-If you want point In time Backup, You can follow [this](https://hce.chaosnative.com/manifests/latest/percona-mongo/percona-backup.yaml) manifest: 
+If you want point In time Backup, You can follow [this](https://github.com/chaosnative/hce-charts/blob/main/k8s-manifests/percona-mongo/percona-backup.yaml) manifest: 
 
 ### Restore
-To restore you can  follow [this](https://hce.chaosnative.com/manifests/latest/percona-mongo/percona-backup-restore.yaml) manifest.
+To restore you can  follow [this](https://github.com/chaosnative/hce-charts/blob/percona/k8s-manifests/main/percona-backup-restore.yaml) manifest.
