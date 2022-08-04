@@ -68,7 +68,7 @@ Output:
 secret/mongo-secrets created
 secret/my-cluster-name-backup-s3 created
 ```
-**Note:** If you want to take the backup of db to the s3, then you have to create secret for the s3 bucket
+**Note:** If you want to take the backup of db to the s3, then you have to create secret for the s3 bucket.
 ```bash
 apiVersion: v1
 kind: Secret
@@ -189,4 +189,4 @@ Here You can find the example  which uses  Amazon S3 for Backup
 If you want point In time Backup, You can follow [this](https://github.com/chaosnative/hce-charts/blob/main/k8s-manifests/percona-mongo/percona-backup.yaml) manifest: 
 
 ### Restore
-To restore you can  follow [this](https://github.com/chaosnative/hce-charts/blob/percona/k8s-manifests/main/percona-backup-restore.yaml) manifest.
+To restore you can  follow [this](https://github.com/chaosnative/hce-charts/blob/main/k8s-manifests/percona-mongo/percona-backup-restore.yaml) manifest.
