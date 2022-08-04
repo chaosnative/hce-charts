@@ -17,7 +17,7 @@ Based on the best practices for deployment and configuration, Percona Distributi
 
 The design of the Operator is tightly bound to the Percona Server for MongoDB replica set, which is briefly described in the following diagram.
 
-
+![Design Diagram](../images/replication.png)
 
 A replica set consists of one primary server and several secondary ones (two in the picture), and the HCE  accesses the servers via a driver.
 To provide high availability the Operator uses node affinity to run MongoDB instances on separate worker nodes if possible, and the database cluster is deployed as a single Replica Set with at least three nodes. If a node fails, the pod with the mongod process is automatically re-created on another node. If the failed node was hosting the primary server, the replica set initiates elections to select a new primary. If the failed node was running the Operator, Kubernetes will restart the Operator on another node, so normal operation will not be interrupted.
@@ -149,6 +149,7 @@ percona-server-mongodb-operator-57cdd66f6c-9rzg5   1/1     Running   0          
 Percona Backup for MongoDB is a distributed, low-impact solution for achieving consistent backups of MongoDB sharded clusters and replica sets
 The Operator usually stores Server for MongoDB backups outside the Kubernetes cluster: on Amazon S3 or S3-compatible storage, or on Azure Blob Storage.
 
+![Backup Diagram](../images/backup-s3.png)
 
 Here You can find the example  which uses  Amazon S3 for Backup
 ```bash
