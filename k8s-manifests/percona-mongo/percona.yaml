@@ -1,0 +1,66 @@
+---
+apiVersion: psmdb.percona.com/v1-11-0
+kind: PerconaServerMongoDB
+metadata:
+  name: mongo-cluster
+  namespace: litmus
+spec:
+  crVersion: 1.11.0
+  image: percona/percona-server-mongodb:4.4.10-11
+  allowUnsafeConfigurations: true
+  upgradeOptions:
+    apply: 4.4-recommended
+    schedule: "0 2 * * *"
+  secrets:
+    users: mongo-secrets
+  replsets:
+
+  - name: rs0
+    size: 2
+    volumeSpec:
+      persistentVolumeClaim:
+        resources:
+          requests:
+            storage: 3Gi
+
+
+  - name: rs1
+    size: 2
+    volumeSpec:
+      persistentVolumeClaim:
+        resources:
+          requests:
+            storage: 3Gi
+  sharding:
+    enabled: true
+
+    configsvrReplSet:
+      size: 2
+      volumeSpec:
+        persistentVolumeClaim:
+          resources:
+            requests:
+              storage: 3Gi
+
+    mongos:
+      size: 2
+  # backup:
+  #   enabled: true
+  #   restartOnFailure: true
+  #   image: percona/percona-server-mongodb-operator:1.11.0-backup
+  #   serviceAccountName: percona-server-mongodb-operator
+  #   storages:
+  #     s3-us-east:
+  #      type: s3
+  #      s3:
+  #        bucket: pecona-backup-test
+  #        credentialsSecret: my-cluster-name-backup-s3
+  #        region: us-east-1
+  #        prefix: ""
+  #   tasks:
+  #   - name: "every-5-min-backup"
+  #     enabled: true
+  #     schedule: "*/5 * * * *"
+  #     keep: 3
+  #     storageName: s3-us-east
+---

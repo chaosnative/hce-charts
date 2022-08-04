@@ -1,0 +1,15 @@
+apiVersion: psmdb.percona.com/v1
+kind: PerconaServerMongoDBRestore
+metadata:
+  name: restore4
+spec:
+  clusterName: mongo-cluster
+    #backupName: cron-mongo-cluster-20220406125001-n4zhv
+  backupSource:
+    destination: s3://pecona-backup-test/2022-04-13T12:05:22Z
+    s3:
+      credentialsSecret: my-cluster-name-backup-s3
+      region: us-east-1
+      bucket: pecona-backup-test
+      endpointUrl: https://s3.us-east-1.amazonaws.com/
+      prefix: ""
