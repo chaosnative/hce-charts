@@ -7,7 +7,7 @@ Based on the best practices for deployment and configuration, Percona Distributi
 
 - You can configure MongoDB cluster backups to run on a scheduled basis. Backups are stored on an external S3-compatible object storage.
 
-- You can Rely on support for data encryption in transit.
+- You can rely on support for data encryption in transit.
 
 - You can rely on the self healing capability to automatically recover from failure of a single Percona Server for MongoDB node.
 
@@ -35,7 +35,7 @@ customresourcedefinition.apiextensions.k8s.io/perconaservermongodbs.psmdb.percon
 customresourcedefinition.apiextensions.k8s.io/perconaservermongodbbackups.psmdb.percona.com created
 customresourcedefinition.apiextensions.k8s.io/perconaservermongodbrestores.psmdb.percona.com created
 ```
--  Setting up the RBAC  for Percona server for MongoDB\
+-  Setting up the RBAC for Percona server for MongoDB\
 **Note:** Setting RBAC requires your user to have cluster-admin role privileges
 ```bash
  Kubectl apply -f https://hce.chaosnative.com/manifests/latest/percona-mongo/percona-mongodb-rbac.yaml
@@ -67,6 +67,18 @@ Output:
 ```bash
 secret/mongo-secrets created
 secret/my-cluster-name-backup-s3 created
+```
+**Note:** If you want to take the backup of db to the s3, then you have to create secret for the s3 bucket
+```bash
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-cluster-name-backup-s3
+  namespace: litmus
+type: Opaque
+stringData:
+  AWS_ACCESS_KEY_ID: XXXXXXXXXXXXXXXXXXXXXXXX
+  AWS_SECRET_ACCESS_KEY: XXXXXXXXXXXXXXXXXXXX
 ```
 - The creation process may take some time. The process is over when all Pods have reached their Running status. You can check it with the following command:
 ```bash
