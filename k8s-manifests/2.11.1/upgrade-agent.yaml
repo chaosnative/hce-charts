@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: upgrade-agent
-          image: chaosnative/upgrade-agent-cp:2.11.1
+          image: chaosnative/hce-upgrade-agent-cp:2.11.1
           envFrom:
             - configMapRef:
                 name: litmus-portal-admin-config
