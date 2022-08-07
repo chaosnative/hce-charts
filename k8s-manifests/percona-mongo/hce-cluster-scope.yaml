@@ -679,6 +679,7 @@ spec:
       labels:
         component: litmusportal-frontend
     spec:
+      automountServiceAccountToken: false
       imagePullSecrets:
         - name: regcred
       containers:
