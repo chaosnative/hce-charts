@@ -1,6 +1,6 @@
 # hce
 
-![Version: 2.11.1](https://img.shields.io/badge/Version-2.11.1-informational?style=flat-square) ![AppVersion: 2.11.0](https://img.shields.io/badge/AppVersion-2.11.0-informational?style=flat-square)
+![Version: 2.11.2](https://img.shields.io/badge/Version-2.11.2-informational?style=flat-square) ![AppVersion: 2.11.0](https://img.shields.io/badge/AppVersion-2.11.0-informational?style=flat-square)
 
 A Helm chart to install Harness Chaos Enterprise
 
@@ -40,9 +40,11 @@ Kubernetes: `>=1.16.0-0`
 | ingress.host.name | string | `""` | This is ingress hostname (ex: my-domain.com) |
 | ingress.host.paths.backend | string | `"/backend/(.*)"` | You may need adapt the path depending your ingress-controller |
 | ingress.host.paths.frontend | string | `"/(.*)"` | You may need adapt the path depending your ingress-controller |
+| ingress.ingressClassName | string | `""` |  |
 | ingress.name | string | `"litmus-ingress"` |  |
 | ingress.tls | list | `[]` |  |
 | mongo.affinity | object | `{}` |  |
+| mongo.automountServiceAccountToken | bool | `false` |  |
 | mongo.containerPort | int | `27017` |  |
 | mongo.customLabels | object | `{}` |  |
 | mongo.image.pullPolicy | string | `"Always"` |  |
@@ -78,6 +80,7 @@ Kubernetes: `>=1.16.0-0`
 | openshift.route.host | string | `""` |  |
 | openshift.route.name | string | `"litmus-portal"` |  |
 | portal.authServer.affinity | object | `{}` |  |
+| portal.authServer.automountServiceAccountToken | bool | `false` |  |
 | portal.authServer.customLabels | object | `{}` |  |
 | portal.authServer.env.ADMIN_PASSWORD | string | `"litmus"` |  |
 | portal.authServer.env.ADMIN_USERNAME | string | `"admin"` |  |
@@ -104,10 +107,10 @@ Kubernetes: `>=1.16.0-0`
 | portal.authServer.service.authServer.port | int | `9003` |  |
 | portal.authServer.service.authServer.targetPort | int | `3000` |  |
 | portal.authServer.service.type | string | `"NodePort"` |  |
-| portal.authServer.serviceAccountName | string | `"default"` |  |
 | portal.authServer.tolerations | list | `[]` |  |
 | portal.authServer.updateStrategy | object | `{}` |  |
 | portal.frontend.affinity | object | `{}` |  |
+| portal.frontend.automountServiceAccountToken | bool | `false` |  |
 | portal.frontend.containerPort | int | `8080` |  |
 | portal.frontend.customLabels | object | `{}` |  |
 | portal.frontend.image.pullPolicy | string | `"Always"` |  |
