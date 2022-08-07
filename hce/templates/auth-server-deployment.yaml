@@ -31,6 +31,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+      automountServiceAccountToken: {{ .Values.portal.authServer.automountServiceAccountToken }}
       initContainers:
         - name: wait-for-mongodb
           image: {{ .Values.image.imageRegistryName }}/{{ .Values.portal.waitForMongodb.image.repository }}:{{ .Values.portal.waitForMongodb.image.tag }}

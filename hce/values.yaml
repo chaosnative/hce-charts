@@ -33,6 +33,7 @@ ingress:
     # kubernetes.io/tls-acme: "true"
     # nginx.ingress.kubernetes.io/rewrite-target: /$1
 
+  ingressClassName: ""
   host:
     # -- This is ingress hostname (ex: my-domain.com)
     name: ""
@@ -74,6 +75,7 @@ portal:
       tag: 2.11.1
       pullPolicy: "Always"
     containerPort: 8080
+    automountServiceAccountToken: false
     customLabels: {}
     securityContext:
       runAsUser: 2000
@@ -130,7 +132,7 @@ portal:
     ##     rollingUpdate:
     ##       maxSurge: 1
     ##       maxUnavailable: 25%
-    serviceAccountName: default
+    automountServiceAccountToken: false
     customLabels: {}
 
     image:
@@ -370,6 +372,7 @@ mongo:
     targetPort: 27017
   # Service account to be used by mongo pods
   # serviceAccountName: "mongo-service-account"
+  automountServiceAccountToken: false
   nodeSelector: {}
   tolerations: []
   affinity: {}
