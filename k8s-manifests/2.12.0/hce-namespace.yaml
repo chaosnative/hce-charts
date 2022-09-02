@@ -977,7 +977,6 @@ metadata:
   labels:
     app: mongo
   name: mongo-service
-  namespace: litmus
 spec:
   ports:
     - port: 27017
@@ -991,7 +990,6 @@ metadata:
   labels:
     app: mongo
   name: mongo
-  namespace: litmus
 spec:
   clusterIP: None
   ports:

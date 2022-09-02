@@ -629,6 +629,7 @@ spec:
       labels:
         component: litmusportal-frontend
     spec:
+      automountServiceAccountToken: false
       imagePullSecrets:
         - name: regcred
       containers:
@@ -926,6 +927,7 @@ spec:
       labels:
         component: database
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: mongo
           image: chaosnative/mongo:4.2.8
@@ -976,6 +978,20 @@ metadata:
     app: mongo
   name: mongo-service
 spec:
+  ports:
+    - port: 27017
+      targetPort: 27017
+  selector:
+    component: database
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mongo
+  name: mongo
+spec:
+  clusterIP: None
   ports:
     - port: 27017
       targetPort: 27017

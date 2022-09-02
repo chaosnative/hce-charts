@@ -23,6 +23,9 @@ rules:
 - apiGroups: [argoproj.io]
   resources: [workflowtemplates, workflowtemplates/finalizers,workflowtasksets]
   verbs: [get, list, watch]
+- apiGroups: ["argoproj.io"]
+  resources: ["workflowtaskresults"]
+  verbs: ["list", "watch", "deletecollection"]
 - apiGroups: [""]
   resources: [serviceaccounts]
   verbs: [get, list]
@@ -109,7 +112,7 @@ rules:
 
   - apiGroups: [litmuschaos.io]
     resources: [chaosengines, chaosschedules, chaosresults]
-    verbs: [get, list, create, delete, update, watch]
+    verbs: [get, list, create, delete, update, watch, patch]
 
   - apiGroups: [apps.openshift.io]
     resources: [deploymentconfigs]
@@ -124,7 +127,11 @@ rules:
 
   - apiGroups: [argoproj.io]
     resources: [workflows, workflows/finalizers, workflowtemplates, workflowtemplates/finalizers, cronworkflows, cronworkflows/finalizers, rollouts]
-    verbs: [get, list, create, delete, update, watch]
+    verbs: [get, list, create, delete, update, watch, patch]
+
+  - apiGroups: [litmuschaos.io]
+    resources: [chaosengines/finalizers]
+    verbs: [update]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
