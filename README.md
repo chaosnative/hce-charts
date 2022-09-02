@@ -73,7 +73,7 @@ release "hce" uninstalled
 ## Installation via Kubectl
 
 ### Latest Release version
-> 2.11.0 Cluster scope. Install in litmus namespace by default.
+> 2.12.0 Cluster scope. Install in litmus namespace by default.
 
 ```bash
 kubectl apply -f https://hce.chaosnative.com/manifests/latest/hce-cluster-scope.yaml
@@ -81,7 +81,7 @@ kubectl apply -f https://hce.chaosnative.com/manifests/latest/hce-cluster-scope.
 
 Or
 
-> 2.11.0 Namespaced scope. Replace `litmus` with the desired namespace.
+> 2.12.0 Namespaced scope. Replace `litmus` with the desired namespace.
 
 ```bash
 kubectl create ns litmus
