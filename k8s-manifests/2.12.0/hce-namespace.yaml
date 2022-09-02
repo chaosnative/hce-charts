@@ -629,6 +629,7 @@ spec:
       labels:
         component: litmusportal-frontend
     spec:
+      automountServiceAccountToken: false
       imagePullSecrets:
         - name: regcred
       containers:
@@ -926,6 +927,7 @@ spec:
       labels:
         component: database
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: mongo
           image: chaosnative/mongo:4.2.8
