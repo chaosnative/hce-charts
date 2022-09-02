@@ -253,8 +253,8 @@ portal:
     rpcContainerPort: 8000
 
     imageEnv:
-      ARGO_WORKFLOW_CONTROLLER_IMAGE: "chaosnative/workflow-controller:v3.2.3"
-      ARGO_WORKFLOW_EXECUTOR_IMAGE: "chaosnative/argoexec:v3.2.3"
+      ARGO_WORKFLOW_CONTROLLER_IMAGE: "chaosnative/workflow-controller:v3.3.1"
+      ARGO_WORKFLOW_EXECUTOR_IMAGE: "chaosnative/argoexec:v3.3.1"
       LITMUS_CHAOS_OPERATOR_IMAGE: "chaosnative/chaos-operator:2.12.0"
       LITMUS_CHAOS_RUNNER_IMAGE: "chaosnative/chaos-runner:2.12.0"
       LITMUS_CHAOS_EXPORTER_IMAGE: "chaosnative/chaos-exporter:2.12.0"
