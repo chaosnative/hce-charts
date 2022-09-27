@@ -959,6 +959,8 @@ spec:
       labels:
         component: database
     spec:
+      imagePullSecrets:
+        - name: regcred
       automountServiceAccountToken: false
       containers:
         - name: mongo
