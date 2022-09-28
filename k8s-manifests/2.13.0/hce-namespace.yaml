@@ -783,7 +783,7 @@ spec:
             - name: WORKFLOW_HELPER_IMAGE_VERSION
               value: "2.13.0"
             - name: ENTERPRISE_HUB_BRANCH_NAME
-              value: "main"
+              value: "v2.13.x"
           ports:
             - containerPort: 8080
             - containerPort: 8000
