@@ -3243,17 +3243,17 @@ spec:
                                     - criteria
                                     - value
                                     type: object
-                                  dynatraceEndPoint:
+                                  endpoint:
                                     description: Endpoint of the dynatrace probe
                                     type: string
                                   metrics:
                                     description: Raw metrcis details of the dynatrace
                                       probe
                                     properties:
-                                      dynatraceEntitySelector:
+                                      entitySelector:
                                         description: Entiity Selector of the metrics
                                         type: string
-                                      dynatraceMetricsSelector:
+                                      metricsSelector:
                                         description: Query to get Dynatrace metrics
                                         type: string
                                     type: object
@@ -3263,7 +3263,7 @@ spec:
                                 required:
                                 - apiTokenSecretName
                                 - comparator
-                                - dynatraceEndPoint
+                                - endpoint
                                 - timeFrame
                                 type: object                    
                               mode:
