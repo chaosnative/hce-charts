@@ -100,6 +100,7 @@ spec:
               terminationGracePeriodSeconds:
                 type: integer
               components:
+                x-kubernetes-preserve-unknown-fields: true
                 type: object
                 properties:
                   sidecar:
@@ -277,7 +278,7 @@ spec:
                             type: object
                           type: array
                   runner:
-                    x-kubernetes-preserve-unknown-fields: true 
+                    x-kubernetes-preserve-unknown-fields: true
                     type: object
                     properties:
                       image:
@@ -324,8 +325,25 @@ spec:
               experiments:
                 type: array
                 items:
+                  x-kubernetes-preserve-unknown-fields: true
                   type: object
                   properties:
+                    args:
+                      description: Args of experiment
+                      items:
+                        type: string
+                      type: array
+                    command:
+                      description: Command for experiment
+                      items:
+                        type: string
+                      type: array
+                    image:
+                      description: Image of the experiment
+                      type: string
+                    imagePullPolicy:
+                      description: ImagePullPolicy of the chaos experiment
+                      type: string
                     name:
                       type: string
                     spec:
@@ -334,6 +352,7 @@ spec:
                         probe:
                           type: array
                           items:
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                             required:
                               - name
@@ -348,6 +367,7 @@ spec:
                                 minLength: 1
                                 pattern: ^(k8sProbe|httpProbe|cmdProbe|promProbe|sloProbe|dynatraceProbe|datadogProbe)$
                               k8sProbe/inputs:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 required:
                                   - version
@@ -372,8 +392,11 @@ spec:
                                     type: string
                                     pattern: ^(present|absent|create|delete)$
                                     minLength: 1
+                                  data:
+                                    type: string
                               cmdProbe/inputs:
                                 type: object
+                                x-kubernetes-preserve-unknown-fields: true
                                 required:
                                   - command
                                   - comparator
@@ -397,6 +420,7 @@ spec:
                                       value:
                                         type: string
                                   source:
+                                    x-kubernetes-preserve-unknown-fields: true
                                     description: The external pod where we have to run the
                                       probe commands. It will run the commands inside the experiment pod itself(inline mode) if source contains a nil value
                                     required:
@@ -2184,6 +2208,7 @@ spec:
                                     type: object
                               httpProbe/inputs:
                                 type: object
+                                x-kubernetes-preserve-unknown-fields: true
                                 required:
                                   - url
                                   - method
@@ -2193,43 +2218,89 @@ spec:
                                     minLength: 1
                                   insecureSkipVerify:
                                     type: boolean
+                                  auth:
+                                    x-kubernetes-preserve-unknown-fields: true
+                                    description: Auth contains the authentication
+                                      details for the prometheus probe
+                                    properties:
+                                      type:
+                                        type: string
+                                      credentials:
+                                        type: string
+                                      credentialsFile:
+                                        type: string
+                                    type: object
+                                  tlsConfig:
+                                    x-kubernetes-preserve-unknown-fields: true
+                                    description: TLSConfig contains the tls configuration
+                                      for the prometheus probe
+                                    properties:
+                                      caFile:
+                                        description: The CA cert to use for the targets.
+                                        type: string
+                                      certFile:
+                                        description: The client cert file for the
+                                          targets.
+                                        type: string
+                                      insecureSkipVerify:
+                                        description: Disable target certificate validation.
+                                        type: boolean
+                                      keyFile:
+                                        description: The client key file for the targets.
+                                        type: string
+                                      serverName:
+                                        description: Used to verify the hostname for
+                                          the targets.
+                                        type: string
+                                    type: object
+                                  headers:
+                                    additionalProperties:
+                                      type: string
+                                    description: Headers contains the request headers
+                                    type: object
                                   method:
+                                    x-kubernetes-preserve-unknown-fields: true
                                     type: object
                                     minProperties: 1
                                     properties:
                                       get:
+                                        x-kubernetes-preserve-unknown-fields: true
                                         type: object
-                                        required:
-                                          - criteria
-                                          - responseCode
                                         properties:
                                           criteria:
                                             type: string
                                             minLength: 1
                                           responseCode:
                                             type: string
-                                            minLength: 1
+                                          responseBody:
+                                            type: string
+                                        oneOf:
+                                          - required: [ responseCode, criteria ]
+                                          - required: [ responseBody, criteria ]
                                       post:
+                                        x-kubernetes-preserve-unknown-fields: true
                                         type: object
-                                        required:
-                                          - criteria
-                                          - responseCode
                                         properties:
                                           contentType:
                                             type: string
                                             minLength: 1
                                           body:
                                             type: string
-                                          bodyPath: 
+                                          bodyPath:
                                             type: string
                                           criteria:
                                             type: string
                                             minLength: 1
                                           responseCode:
                                             type: string
-                                            minLength: 1                                       
+                                          responseBody:
+                                            type: string
+                                        oneOf:
+                                          - required: [ responseCode, criteria ]
+                                          - required: [ responseBody, criteria ]
                               promProbe/inputs:
                                 type: object
+                                x-kubernetes-preserve-unknown-fields: true
                                 required:
                                   - endpoint
                                   - comparator
@@ -2250,7 +2321,43 @@ spec:
                                         type: string
                                       value:
                                         type: string
+                                  auth:
+                                    x-kubernetes-preserve-unknown-fields: true
+                                    description: Auth contains the authentication
+                                      details for the prometheus probe
+                                    properties:
+                                      type:
+                                        type: string
+                                      credentials:
+                                        type: string
+                                      credentialsFile:
+                                        type: string
+                                    type: object
+                                  tlsConfig:
+                                    x-kubernetes-preserve-unknown-fields: true
+                                    description: TLSConfig contains the tls configuration
+                                      for the prometheus probe
+                                    properties:
+                                      caFile:
+                                        description: The CA cert to use for the targets.
+                                        type: string
+                                      certFile:
+                                        description: The client cert file for the
+                                          targets.
+                                        type: string
+                                      insecureSkipVerify:
+                                        description: Disable target certificate validation.
+                                        type: boolean
+                                      keyFile:
+                                        description: The client key file for the targets.
+                                        type: string
+                                      serverName:
+                                        description: Used to verify the hostname for
+                                          the targets.
+                                        type: string
+                                    type: object
                               datadogProbe/inputs:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 required:
                                   - datadogSite
@@ -2260,7 +2367,43 @@ spec:
                                     type: string
                                   datadogCredentialsSecretName:
                                     type: string
+                                  metrics:
+                                    x-kubernetes-preserve-unknown-fields: true
+                                    type: object
+                                    required:
+                                      - query
+                                      - timeFrame
+                                      - comparator
+                                    properties:
+                                      query:
+                                        type: string
+                                      timeFrame:
+                                        type: string
+                                      comparator:
+                                        x-kubernetes-preserve-unknown-fields: true
+                                        description: Comparator check for the correctness
+                                          of the probe output
+                                        properties:
+                                          criteria:
+                                            description: Criteria for matching data it
+                                              supports >=, <=, ==, >, <, != for int and
+                                              float it supports equal, notEqual, contains
+                                              for string
+                                            type: string
+                                          type:
+                                            description: Type of data it can be int, float,
+                                              string
+                                            type: string
+                                          value:
+                                            description: Value contains relative value
+                                              for criteria
+                                            type: string
+                                        required:
+                                          - criteria
+                                          - value
+                                        type: object
                                   syntheticsTest:
+                                    x-kubernetes-preserve-unknown-fields: true
                                     type: object
                                     required:
                                       - testType
@@ -2273,14 +2416,13 @@ spec:
                                       publicId:
                                         type: string
                               runProperties:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 minProperties: 2
                                 required:
                                   - probeTimeout
                                   - interval
                                 properties:
-                                  evaluationTimeout:
-                                    type: string
                                   probeTimeout:
                                     type: string
                                   interval:
@@ -2297,7 +2439,10 @@ spec:
                                     type: string
                                   stopOnFailure:
                                     type: boolean
+                                  verbosity:
+                                    type: string
                               sloProbe/inputs:
+                                x-kubernetes-preserve-unknown-fields: true
                                 description: inputs needed for the SLO probe
                                 required:
                                   - platformEndpoint
@@ -2328,6 +2473,7 @@ spec:
                                         type: string
                                     type: object
                                   evaluationWindow:
+                                    x-kubernetes-preserve-unknown-fields: true
                                     description: EvaluationWindow is the time period
                                       for which the metrics will be evaluated
                                     properties:
@@ -2351,6 +2497,7 @@ spec:
                                       of the SLO
                                     type: string
                                   sloSourceMetadata:
+                                    x-kubernetes-preserve-unknown-fields: true
                                     description: SLOSourceMetadata consists of required
                                       metadata details to fetch metric data
                                     required:
@@ -2362,6 +2509,7 @@ spec:
                                           with the platform service
                                         type: string
                                       scope:
+                                        x-kubernetes-preserve-unknown-fields: true
                                         description: Scope required for fetching details
                                         required:
                                           - accountIdentifier
@@ -2382,8 +2530,11 @@ spec:
                                             type: string
                                         type: object
                                     type: object
+                                  evaluationTimeout:
+                                    type: string
                                 type: object
                               dynatraceProbe/inputs:
+                                x-kubernetes-preserve-unknown-fields: true
                                 description: inputs needed for the Dynatrace probe
                                 properties:
                                   apiTokenSecretName:
@@ -2416,6 +2567,7 @@ spec:
                                     description: Endpoint of the dynatrace probe
                                     type: string
                                   metrics:
+                                    x-kubernetes-preserve-unknown-fields: true
                                     description: Raw metrcis details of the dynatrace
                                       probe
                                     properties:
@@ -2434,7 +2586,8 @@ spec:
                                 - comparator
                                 - endpoint
                                 - timeFrame
-                                type: object                    
+                                - metrics
+                                type: object
                               mode:
                                 type: string
                                 pattern: ^(SOT|EOT|Edge|Continuous|OnChaos)$
@@ -2442,7 +2595,7 @@ spec:
                               data:
                                 type: string
                         components:
-                          x-kubernetes-preserve-unknown-fields: true 
+                          x-kubernetes-preserve-unknown-fields: true
                           type: object
                           properties:
                             statusCheckTimeouts:
@@ -2636,13 +2789,379 @@ spec:
                                     type: string
                                 type: object
                               type: array
+                            securityContext:
+                              description: SecurityContext holds security configuration
+                                that will be applied to experiment pod and container
+                              properties:
+                                containerSecurityContext:
+                                  description: ContainerSecurityContext holds security
+                                    configuration that will be applied to a container
+                                  properties:
+                                    allowPrivilegeEscalation:
+                                      description: 'AllowPrivilegeEscalation controls
+                                        whether a process can gain more privileges
+                                        than its parent process. This bool directly
+                                        controls if the no_new_privs flag will be
+                                        set on the container process. AllowPrivilegeEscalation
+                                        is true always when the container is: 1) run
+                                        as Privileged 2) has CAP_SYS_ADMIN'
+                                      type: boolean
+                                    capabilities:
+                                      description: The capabilities to add/drop when
+                                        running containers. Defaults to the default
+                                        set of capabilities granted by the container
+                                        runtime.
+                                      properties:
+                                        add:
+                                          description: Added capabilities
+                                          items:
+                                            description: Capability represent POSIX
+                                              capabilities type
+                                            type: string
+                                          type: array
+                                        drop:
+                                          description: Removed capabilities
+                                          items:
+                                            description: Capability represent POSIX
+                                              capabilities type
+                                            type: string
+                                          type: array
+                                      type: object
+                                    privileged:
+                                      description: Run container in privileged mode.
+                                        Processes in privileged containers are essentially
+                                        equivalent to root on the host. Defaults to
+                                        false.
+                                      type: boolean
+                                    procMount:
+                                      description: procMount denotes the type of proc
+                                        mount to use for the containers. The default
+                                        is DefaultProcMount which uses the container
+                                        runtime defaults for readonly paths and masked
+                                        paths. This requires the ProcMountType feature
+                                        flag to be enabled.
+                                      type: string
+                                    readOnlyRootFilesystem:
+                                      description: Whether this container has a read-only
+                                        root filesystem. Default is false.
+                                      type: boolean
+                                    runAsGroup:
+                                      description: The GID to run the entrypoint of
+                                        the container process. Uses runtime default
+                                        if unset. May also be set in PodSecurityContext.  If
+                                        set in both SecurityContext and PodSecurityContext,
+                                        the value specified in SecurityContext takes
+                                        precedence.
+                                      format: int64
+                                      type: integer
+                                    runAsNonRoot:
+                                      description: Indicates that the container must
+                                        run as a non-root user. If true, the Kubelet
+                                        will validate the image at runtime to ensure
+                                        that it does not run as UID 0 (root) and fail
+                                        to start the container if it does. If unset
+                                        or false, no such validation will be performed.
+                                        May also be set in PodSecurityContext.  If
+                                        set in both SecurityContext and PodSecurityContext,
+                                        the value specified in SecurityContext takes
+                                        precedence.
+                                      type: boolean
+                                    runAsUser:
+                                      description: The UID to run the entrypoint of
+                                        the container process. Defaults to user specified
+                                        in image metadata if unspecified. May also
+                                        be set in PodSecurityContext.  If set in both
+                                        SecurityContext and PodSecurityContext, the
+                                        value specified in SecurityContext takes precedence.
+                                      format: int64
+                                      type: integer
+                                    seLinuxOptions:
+                                      description: The SELinux context to be applied
+                                        to the container. If unspecified, the container
+                                        runtime will allocate a random SELinux context
+                                        for each container.  May also be set in PodSecurityContext.  If
+                                        set in both SecurityContext and PodSecurityContext,
+                                        the value specified in SecurityContext takes
+                                        precedence.
+                                      properties:
+                                        level:
+                                          description: Level is SELinux level label
+                                            that applies to the container.
+                                          type: string
+                                        role:
+                                          description: Role is a SELinux role label
+                                            that applies to the container.
+                                          type: string
+                                        type:
+                                          description: Type is a SELinux type label
+                                            that applies to the container.
+                                          type: string
+                                        user:
+                                          description: User is a SELinux user label
+                                            that applies to the container.
+                                          type: string
+                                      type: object
+                                    seccompProfile:
+                                      description: The seccomp options to use by this
+                                        container. If seccomp options are provided
+                                        at both the pod & container level, the container
+                                        options override the pod options.
+                                      properties:
+                                        localhostProfile:
+                                          description: localhostProfile indicates
+                                            a profile defined in a file on the node
+                                            should be used. The profile must be preconfigured
+                                            on the node to work. Must be a descending
+                                            path, relative to the kubelet's configured
+                                            seccomp profile location. Must only be
+                                            set if type is "Localhost".
+                                          type: string
+                                        type:
+                                          description: "type indicates which kind
+                                            of seccomp profile will be applied. Valid
+                                            options are: \n Localhost - a profile
+                                            defined in a file on the node should be
+                                            used. RuntimeDefault - the container runtime
+                                            default profile should be used. Unconfined
+                                            - no profile should be applied."
+                                          type: string
+                                      required:
+                                        - type
+                                      type: object
+                                    windowsOptions:
+                                      description: The Windows specific settings applied
+                                        to all containers. If unspecified, the options
+                                        from the PodSecurityContext will be used.
+                                        If set in both SecurityContext and PodSecurityContext,
+                                        the value specified in SecurityContext takes
+                                        precedence.
+                                      properties:
+                                        gmsaCredentialSpec:
+                                          description: GMSACredentialSpec is where
+                                            the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa)
+                                            inlines the contents of the GMSA credential
+                                            spec named by the GMSACredentialSpecName
+                                            field.
+                                          type: string
+                                        gmsaCredentialSpecName:
+                                          description: GMSACredentialSpecName is the
+                                            name of the GMSA credential spec to use.
+                                          type: string
+                                        runAsUserName:
+                                          description: The UserName in Windows to
+                                            run the entrypoint of the container process.
+                                            Defaults to the user specified in image
+                                            metadata if unspecified. May also be set
+                                            in PodSecurityContext. If set in both
+                                            SecurityContext and PodSecurityContext,
+                                            the value specified in SecurityContext
+                                            takes precedence.
+                                          type: string
+                                      type: object
+                                  type: object
+                                podSecurityContext:
+                                  description: PodSecurityContext holds security configuration
+                                    that will be applied to a pod
+                                  properties:
+                                    fsGroup:
+                                      description: "A special supplemental group that
+                                        applies to all containers in a pod. Some volume
+                                        types allow the Kubelet to change the ownership
+                                        of that volume to be owned by the pod: \n
+                                        1. The owning GID will be the FSGroup 2. The
+                                        setgid bit is set (new files created in the
+                                        volume will be owned by FSGroup) 3. The permission
+                                        bits are OR'd with rw-rw#### \n If unset,
+                                        the Kubelet will not modify the ownership
+                                        and permissions of any volume."
+                                      format: int64
+                                      type: integer
+                                    fsGroupChangePolicy:
+                                      description: 'fsGroupChangePolicy defines behavior
+                                        of changing ownership and permission of the
+                                        volume before being exposed inside Pod. This
+                                        field will only apply to volume types which
+                                        support fsGroup based ownership(and permissions).
+                                        It will have no effect on ephemeral volume
+                                        types such as: secret, configmaps and emptydir.
+                                        Valid values are "OnRootMismatch" and "Always".
+                                        If not specified, "Always" is used.'
+                                      type: string
+                                    runAsGroup:
+                                      description: The GID to run the entrypoint of
+                                        the container process. Uses runtime default
+                                        if unset. May also be set in SecurityContext.  If
+                                        set in both SecurityContext and PodSecurityContext,
+                                        the value specified in SecurityContext takes
+                                        precedence for that container.
+                                      format: int64
+                                      type: integer
+                                    runAsNonRoot:
+                                      description: Indicates that the container must
+                                        run as a non-root user. If true, the Kubelet
+                                        will validate the image at runtime to ensure
+                                        that it does not run as UID 0 (root) and fail
+                                        to start the container if it does. If unset
+                                        or false, no such validation will be performed.
+                                        May also be set in SecurityContext.  If set
+                                        in both SecurityContext and PodSecurityContext,
+                                        the value specified in SecurityContext takes
+                                        precedence.
+                                      type: boolean
+                                    runAsUser:
+                                      description: The UID to run the entrypoint of
+                                        the container process. Defaults to user specified
+                                        in image metadata if unspecified. May also
+                                        be set in SecurityContext.  If set in both
+                                        SecurityContext and PodSecurityContext, the
+                                        value specified in SecurityContext takes precedence
+                                        for that container.
+                                      format: int64
+                                      type: integer
+                                    seLinuxOptions:
+                                      description: The SELinux context to be applied
+                                        to all containers. If unspecified, the container
+                                        runtime will allocate a random SELinux context
+                                        for each container.  May also be set in SecurityContext.  If
+                                        set in both SecurityContext and PodSecurityContext,
+                                        the value specified in SecurityContext takes
+                                        precedence for that container.
+                                      properties:
+                                        level:
+                                          description: Level is SELinux level label
+                                            that applies to the container.
+                                          type: string
+                                        role:
+                                          description: Role is a SELinux role label
+                                            that applies to the container.
+                                          type: string
+                                        type:
+                                          description: Type is a SELinux type label
+                                            that applies to the container.
+                                          type: string
+                                        user:
+                                          description: User is a SELinux user label
+                                            that applies to the container.
+                                          type: string
+                                      type: object
+                                    seccompProfile:
+                                      description: The seccomp options to use by the
+                                        containers in this pod.
+                                      properties:
+                                        localhostProfile:
+                                          description: localhostProfile indicates
+                                            a profile defined in a file on the node
+                                            should be used. The profile must be preconfigured
+                                            on the node to work. Must be a descending
+                                            path, relative to the kubelet's configured
+                                            seccomp profile location. Must only be
+                                            set if type is "Localhost".
+                                          type: string
+                                        type:
+                                          description: "type indicates which kind
+                                            of seccomp profile will be applied. Valid
+                                            options are: \n Localhost - a profile
+                                            defined in a file on the node should be
+                                            used. RuntimeDefault - the container runtime
+                                            default profile should be used. Unconfined
+                                            - no profile should be applied."
+                                          type: string
+                                      required:
+                                        - type
+                                      type: object
+                                    supplementalGroups:
+                                      description: A list of groups applied to the
+                                        first process run in each container, in addition
+                                        to the container's primary GID.  If unspecified,
+                                        no groups will be added to any container.
+                                      items:
+                                        format: int64
+                                        type: integer
+                                      type: array
+                                    sysctls:
+                                      description: Sysctls hold a list of namespaced
+                                        sysctls used for the pod. Pods with unsupported
+                                        sysctls (by the container runtime) might fail
+                                        to launch.
+                                      items:
+                                        description: Sysctl defines a kernel parameter
+                                          to be set
+                                        properties:
+                                          name:
+                                            description: Name of a property to set
+                                            type: string
+                                          value:
+                                            description: Value of a property to set
+                                            type: string
+                                        required:
+                                          - name
+                                          - value
+                                        type: object
+                                      type: array
+                                    windowsOptions:
+                                      description: The Windows specific settings applied
+                                        to all containers. If unspecified, the options
+                                        within a container's SecurityContext will
+                                        be used. If set in both SecurityContext and
+                                        PodSecurityContext, the value specified in
+                                        SecurityContext takes precedence.
+                                      properties:
+                                        gmsaCredentialSpec:
+                                          description: GMSACredentialSpec is where
+                                            the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa)
+                                            inlines the contents of the GMSA credential
+                                            spec named by the GMSACredentialSpecName
+                                            field.
+                                          type: string
+                                        gmsaCredentialSpecName:
+                                          description: GMSACredentialSpecName is the
+                                            name of the GMSA credential spec to use.
+                                          type: string
+                                        runAsUserName:
+                                          description: The UserName in Windows to
+                                            run the entrypoint of the container process.
+                                            Defaults to the user specified in image
+                                            metadata if unspecified. May also be set
+                                            in PodSecurityContext. If set in both
+                                            SecurityContext and PodSecurityContext,
+                                            the value specified in SecurityContext
+                                            takes precedence.
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
+                            hostFileVolumes:
+                              description: HostFileVolume defines the host directory/file
+                                to be mounted
+                              items:
+                                description: HostFile is an simpler implementation
+                                  of corev1.HostPath, needed for experiments
+                                properties:
+                                  mountPath:
+                                    type: string
+                                  name:
+                                    type: string
+                                  nodePath:
+                                    type: string
+                                  type:
+                                    type: string
+                                required:
+                                  - mountPath
+                                  - name
+                                  - nodePath
+                                type: object
+                              type: array
+                            hostPID:
+                              description: HostPID to enable the hostPID in experiment pod
+                                pod
+                              type: boolean
 
           status:
             x-kubernetes-preserve-unknown-fields: true
             type: object
     served: true
     storage: true
-    subresources: {}  
+    subresources: {}
   conversion:
     strategy: None
 ---
@@ -2669,7 +3188,7 @@ spec:
               of an object. Servers should convert recognized schemas to the latest
               internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources'
             type: string
-          description: 
+          description:
             type: object
             additionalProperties:
               type: string
@@ -2682,7 +3201,7 @@ spec:
             type: object
           status:
             x-kubernetes-preserve-unknown-fields: true
-            type: object            
+            type: object
           spec:
             type: object
             properties:
@@ -2952,4 +3471,4 @@ spec:
     storage: true
     subresources: {}
   conversion:
-    strategy: None    
+    strategy: None
