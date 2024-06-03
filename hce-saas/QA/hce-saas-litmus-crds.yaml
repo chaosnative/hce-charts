@@ -2740,6 +2740,9 @@ spec:
                               items:
                                 type: object
                                 properties:
+                                  defaultMode:
+                                    type: integer
+                                    format: int32
                                   name:
                                     type: string
                                   mountPath:
@@ -2749,6 +2752,9 @@ spec:
                               items:
                                 type: object
                                 properties:
+                                  defaultMode:
+                                    type: integer
+                                    format: int32
                                   name:
                                     type: string
                                   mountPath:
