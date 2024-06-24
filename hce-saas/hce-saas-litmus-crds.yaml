@@ -2613,11 +2613,9 @@ spec:
                                   key:
                                     type: string
                                     minLength: 1
-                                    allowEmptyValue: false
                                   value:
                                     type: string
                                     minLength: 1
-                                    allowEmptyValue: false
                             experimentImage:
                               type: string
                             env:
@@ -2740,6 +2738,9 @@ spec:
                               items:
                                 type: object
                                 properties:
+                                  defaultMode:
+                                    type: integer
+                                    format: int32
                                   name:
                                     type: string
                                   mountPath:
@@ -2749,6 +2750,9 @@ spec:
                               items:
                                 type: object
                                 properties:
+                                  defaultMode:
+                                    type: integer
+                                    format: int32
                                   name:
                                     type: string
                                   mountPath:
@@ -2761,11 +2765,9 @@ spec:
                                   key:
                                     type: string
                                     minLength: 1
-                                    allowEmptyValue: false
                                   value:
                                     type: string
                                     minLength: 1
-                                    allowEmptyValue: false
                             tolerations:
                               description: Pod's tolerations.
                               items:
@@ -3381,11 +3383,9 @@ spec:
                       properties:
                         name:
                           type: string
-                          allowEmptyValue: false
                           minLength: 1
                         mountPath:
                           type: string
-                          allowEmptyValue: false
                           minLength: 1
                   secrets:
                     type: array
@@ -3395,11 +3395,9 @@ spec:
                       properties:
                         name:
                           type: string
-                          allowEmptyValue: false
                           minLength: 1
                         mountPath:
                           type: string
-                          allowEmptyValue: false
                           minLength: 1
                   hostFileVolumes:
                     type: array
@@ -3409,15 +3407,12 @@ spec:
                       properties:
                         name:
                           type: string
-                          allowEmptyValue: false
                           minLength: 1
                         mountPath:
                           type: string
-                          allowEmptyValue: false
                           minLength: 1
                         nodePath:
                           type: string
-                          allowEmptyValue: false
                           minLength: 1
                   securityContext:
                     x-kubernetes-preserve-unknown-fields: true
